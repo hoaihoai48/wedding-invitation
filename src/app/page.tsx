@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Cover from '@/components/Cover';
+import Box from '@mui/material/Box';
+import WeddingEnvelope from '@/components/WeddingEnvelope';
 import MainContent from '@/components/MainContent';
 import AudioPlayer from '@/components/AudioPlayer';
 
@@ -10,7 +10,7 @@ export default function Home() {
   const [isOpened, setIsOpened] = useState(false);
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
 
-  const handleOpenCover = () => {
+  const handleOpenEnvelope = () => {
     setIsOpened(true);
     setIsPlayingMusic(true);
   };
@@ -20,37 +20,27 @@ export default function Home() {
   };
 
   return (
-    <>
-      <AnimatePresence mode="wait">
-        {!isOpened ? (
-          <motion.div
-            key="cover"
-            initial={{ opacity: 1, scale: 1 }}
-            exit={{
-              opacity: 0,
-              scale: 1.15,
-              y: -50,
-              transition: { duration: 0.9, ease: [0.43, 0.13, 0.23, 0.96] },
-            }}
-            style={{ width: '100%', minHeight: '100vh' }}
-          >
-            <Cover onOpen={handleOpenCover} />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="main"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            style={{ width: '100%', minHeight: '100vh' }}
-          >
-            <MainContent />
-          </motion.div>
-        )}
-      </AnimatePresence>
+    <Box sx={{ position: 'relative', width: '100%', minHeight: '100vh', overflow: 'hidden' }}>
+      {/* 1. Main Content scrollable wedding invitation underneath */}
+      <MainContent isOpened={isOpened} />
 
-      {/* Music Player */}
+      {/* 2. Fixed 3D Wedding Envelope Overlay: Fades out smoothly when opened */}
+      <Box
+        sx={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 50,
+          opacity: isOpened ? 0 : 1,
+          pointerEvents: isOpened ? 'none' : 'auto',
+          transition: 'opacity 0.7s ease-out, visibility 0.7s ease-out',
+          visibility: isOpened ? 'hidden' : 'visible',
+        }}
+      >
+        <WeddingEnvelope onOpened={handleOpenEnvelope} />
+      </Box>
+
+      {/* Audio Disc Player */}
       <AudioPlayer isPlaying={isPlayingMusic} onToggle={handleToggleMusic} />
-    </>
+    </Box>
   );
 }
