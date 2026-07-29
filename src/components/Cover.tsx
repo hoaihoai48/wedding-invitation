@@ -1,61 +1,35 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import Image from 'next/image';
 
 interface CoverProps {
   onOpen: () => void;
 }
 
-// Floating floral petal
-function FloatingPetal({ delay, x, size }: { delay: number; x: string; size: number }) {
-  const petals = ['🌸', '🌿', '✿', '❀', '🌺'];
-  const petal = petals[Math.floor(Math.random() * petals.length)];
+// Postmark wavy lines (stamp decoration)
+function PostmarkLines() {
   return (
-    <motion.div
-      style={{
-        position: 'absolute',
-        top: '-5%',
-        left: x,
-        fontSize: size,
-        pointerEvents: 'none',
-        userSelect: 'none',
-        zIndex: 1,
-        opacity: 0,
-      }}
-      animate={{
-        y: ['0vh', '105vh'],
-        rotate: [0, 180, 360],
-        opacity: [0, 0.45, 0.45, 0],
-      }}
-      transition={{
-        duration: 10 + Math.random() * 5,
-        delay,
-        repeat: Infinity,
-        ease: 'linear',
-      }}
-    >
-      {petal}
-    </motion.div>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+      {[28, 22, 26, 20].map((w, i) => (
+        <Box
+          key={i}
+          sx={{
+            width: w,
+            height: '1.5px',
+            background: 'rgba(201, 160, 64, 0.7)',
+            borderRadius: '2px',
+          }}
+        />
+      ))}
+    </Box>
   );
 }
 
 export default function Cover({ onOpen }: CoverProps) {
-  const petals = [
-    { delay: 0, x: '8%', size: 14 },
-    { delay: 2, x: '22%', size: 12 },
-    { delay: 1, x: '38%', size: 16 },
-    { delay: 3, x: '54%', size: 13 },
-    { delay: 0.5, x: '68%', size: 15 },
-    { delay: 2.5, x: '82%', size: 12 },
-    { delay: 4, x: '92%', size: 14 },
-    { delay: 1.5, x: '3%', size: 11 },
-  ];
-
   return (
     <Box
       sx={{
@@ -63,295 +37,263 @@ export default function Cover({ onOpen }: CoverProps) {
         inset: 0,
         zIndex: 100,
         overflow: 'hidden',
-        // Nền ivory ấm – không chói, như giấy thiệp thật
-        background: 'linear-gradient(160deg, #fdfaf5 0%, #f7f0e6 40%, #f2ebe0 100%)',
+        background: '#8B1C1C',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
       }}
     >
-      {/* Subtle background texture circles */}
-      <Box sx={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' }}>
-        <motion.div
-          style={{
-            position: 'absolute',
-            width: 500,
-            height: 500,
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(201,169,110,0.08) 0%, transparent 70%)',
-            top: '-180px',
-            right: '-120px',
-          }}
-          animate={{ scale: [1, 1.15, 1] }}
-          transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.div
-          style={{
-            position: 'absolute',
-            width: 400,
-            height: 400,
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(155,132,180,0.07) 0%, transparent 70%)',
-            bottom: '-120px',
-            left: '-80px',
-          }}
-          animate={{ scale: [1, 1.12, 1] }}
-          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
-        />
-      </Box>
-
-      {/* Decorative corner floral – top left */}
+      {/* Envelope flap triangle at top */}
       <Box
         sx={{
           position: 'absolute',
           top: 0,
           left: 0,
-          width: { xs: 120, sm: 180 },
-          height: { xs: 120, sm: 180 },
-          opacity: 0.18,
-          background:
-            'radial-gradient(ellipse at 0% 0%, rgba(155,132,180,0.6) 0%, transparent 70%)',
-          pointerEvents: 'none',
+          right: 0,
+          height: { xs: '22vw', sm: '160px' },
+          background: '#7a1717',
+          clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
+          zIndex: 2,
         }}
       />
+
+      {/* Subtle texture overlay */}
       <Box
         sx={{
           position: 'absolute',
-          bottom: 0,
-          right: 0,
-          width: { xs: 120, sm: 180 },
-          height: { xs: 120, sm: 180 },
-          opacity: 0.15,
-          background:
-            'radial-gradient(ellipse at 100% 100%, rgba(201,169,110,0.5) 0%, transparent 70%)',
+          inset: 0,
+          opacity: 0.04,
+          backgroundImage:
+            'repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%)',
+          backgroundSize: '8px 8px',
           pointerEvents: 'none',
+          zIndex: 1,
         }}
       />
 
-      {/* Floating petals */}
-      {petals.map((p, i) => (
-        <FloatingPetal key={i} {...p} />
-      ))}
+      {/* Gold border frame */}
+      <Box
+        sx={{
+          position: 'absolute',
+          inset: { xs: 12, sm: 20 },
+          border: '1.5px solid rgba(201, 160, 64, 0.35)',
+          pointerEvents: 'none',
+          zIndex: 3,
+        }}
+      />
 
-      {/* Card */}
+      {/* Main card content */}
       <motion.div
-        initial={{ opacity: 0, y: 24, scale: 0.97 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-        style={{ position: 'relative', zIndex: 2, width: '100%', maxWidth: 520, padding: '0 24px' }}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+        style={{
+          position: 'relative',
+          zIndex: 4,
+          width: '100%',
+          maxWidth: 420,
+          padding: '0 28px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
       >
+        {/* TÂN HÔN badge + stamp */}
         <Box
           sx={{
-            background: 'rgba(255, 253, 248, 0.88)',
-            backdropFilter: 'blur(16px)',
-            WebkitBackdropFilter: 'blur(16px)',
-            borderRadius: '28px',
-            // Viền vàng đồng mảnh – như thiệp giấy cao cấp
-            border: '1px solid rgba(201, 169, 110, 0.3)',
-            boxShadow:
-              '0 2px 0 0 rgba(201,169,110,0.15), 0 24px 60px rgba(61,47,30,0.08), 0 4px 16px rgba(155,132,180,0.08)',
-            p: { xs: 5, sm: 7 },
-            textAlign: 'center',
-            position: 'relative',
-            overflow: 'hidden',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+            width: '100%',
+            mb: 2,
           }}
         >
-          {/* Top gold accent line */}
+          {/* TÂN HÔN label */}
           <Box
             sx={{
-              position: 'absolute',
-              top: 0,
-              left: '15%',
-              right: '15%',
-              height: '2px',
-              background: 'linear-gradient(90deg, transparent, #c9a96e, transparent)',
-              borderRadius: '0 0 2px 2px',
+              border: '1.5px solid #C9A040',
+              px: 1.5,
+              py: 0.5,
+              borderRadius: '2px',
             }}
-          />
+          >
+            <Typography
+              sx={{
+                fontFamily: 'var(--font-oswald), sans-serif',
+                fontSize: '0.65rem',
+                fontWeight: 600,
+                letterSpacing: '0.25em',
+                color: '#C9A040',
+              }}
+            >
+              TÂN HÔN
+            </Typography>
+          </Box>
 
-          {/* Ornamental top */}
+          {/* Stamp area */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <PostmarkLines />
+            <Box
+              sx={{
+                width: 36,
+                height: 36,
+                border: '1.5px solid #C9A040',
+                borderRadius: '2px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Typography sx={{ fontFamily: 'var(--font-oswald)', fontSize: '0.7rem', color: '#C9A040', fontWeight: 700, lineHeight: 1 }}>
+                V
+              </Typography>
+              <Typography sx={{ fontFamily: 'var(--font-oswald)', fontSize: '0.7rem', color: '#C9A040', fontWeight: 700, lineHeight: 1 }}>
+                T
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+
+        {/* Couple illustration */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.6, duration: 1, ease: 'easeOut' }}
+          style={{ width: '100%', display: 'flex', justifyContent: 'flex-start', marginBottom: -8 }}
+        >
+          <Box sx={{ position: 'relative', width: { xs: 150, sm: 180 }, height: { xs: 170, sm: 200 }, flexShrink: 0 }}>
+            <Image
+              src="/images/couple.png"
+              alt="Đôi uyên ương Hoài Vũ & Thục Trinh"
+              fill
+              style={{ objectFit: 'contain', objectPosition: 'bottom' }}
+            />
+          </Box>
+        </motion.div>
+
+        {/* Names area */}
+        <Box sx={{ flex: 1, textAlign: 'center', width: '100%' }}>
+          {/* Gold names */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.9 }}
+          >
+            <Typography
+              sx={{
+                fontFamily: 'var(--font-oswald), sans-serif',
+                fontSize: { xs: '2.4rem', sm: '3rem' },
+                fontWeight: 700,
+                color: '#C9A040',
+                letterSpacing: '0.04em',
+                lineHeight: 1.1,
+                textShadow: '0 2px 8px rgba(0,0,0,0.25)',
+              }}
+            >
+              HOÀI VŨ
+            </Typography>
+
+            <Typography
+              sx={{
+                fontFamily: 'var(--font-oswald), sans-serif',
+                fontSize: { xs: '1.5rem', sm: '1.8rem' },
+                color: '#F5EDD4',
+                opacity: 0.85,
+                letterSpacing: '0.1em',
+                my: 0.3,
+              }}
+            >
+              &
+            </Typography>
+
+            <Typography
+              sx={{
+                fontFamily: 'var(--font-oswald), sans-serif',
+                fontSize: { xs: '2.4rem', sm: '3rem' },
+                fontWeight: 700,
+                color: '#C9A040',
+                letterSpacing: '0.04em',
+                lineHeight: 1.1,
+                textShadow: '0 2px 8px rgba(0,0,0,0.25)',
+              }}
+            >
+              THỤC TRINH
+            </Typography>
+          </motion.div>
+
+          {/* Kính mời: slot */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 1 }}
-          >
-            <Typography
-              sx={{
-                color: '#c9a96e',
-                fontSize: '1.1rem',
-                letterSpacing: '0.5em',
-                mb: 2,
-                opacity: 0.8,
-              }}
-            >
-              ✦ ✦ ✦
-            </Typography>
-          </motion.div>
-
-          {/* Trân trọng kính mời */}
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.9 }}
-          >
-            <Typography
-              variant="overline"
-              sx={{
-                color: '#9b84b4',
-                letterSpacing: '0.28em',
-                fontSize: '0.68rem',
-                display: 'block',
-                mb: 2.5,
-              }}
-            >
-              Trân trọng kính mời
-            </Typography>
-          </motion.div>
-
-          {/* Couple names – dùng màu nâu ấm + điểm lavender, không gradient chói */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.65, duration: 1 }}
-          >
-            <Typography
-              variant="h1"
-              sx={{
-                fontSize: { xs: '3.2rem', sm: '4.5rem' },
-                lineHeight: 1.08,
-                color: '#6b5a8a',
-                mb: 0.5,
-              }}
-            >
-              Vũ
-            </Typography>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.85, duration: 0.7, type: 'spring', stiffness: 180 }}
-          >
-            <FavoriteIcon sx={{ color: '#c9a96e', fontSize: 22, my: 0.75 }} />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 1 }}
-          >
-            <Typography
-              variant="h1"
-              sx={{
-                fontSize: { xs: '3.2rem', sm: '4.5rem' },
-                lineHeight: 1.08,
-                color: '#6b5a8a',
-                mb: 3,
-              }}
-            >
-              Nhím
-            </Typography>
-          </motion.div>
-
-          {/* Divider – mảnh vàng đồng */}
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 1.5,
-              mx: 'auto',
-              mb: 3,
-              width: 'fit-content',
-            }}
+            transition={{ delay: 1.1, duration: 0.8 }}
           >
             <Box
               sx={{
-                width: 40,
-                height: '1px',
-                background: 'linear-gradient(90deg, transparent, #c9a96e)',
+                mt: 2.5,
+                mx: 'auto',
+                width: '80%',
+                background: '#F5EDD4',
+                borderRadius: '4px',
+                px: 2,
+                py: 1.2,
+                textAlign: 'left',
+                position: 'relative',
               }}
-            />
-            <Typography sx={{ color: '#c9a96e', fontSize: '0.7rem', opacity: 0.8 }}>❧</Typography>
-            <Box
-              sx={{
-                width: 40,
-                height: '1px',
-                background: 'linear-gradient(90deg, #c9a96e, transparent)',
-              }}
-            />
-          </Box>
+            >
+              <Typography
+                sx={{
+                  fontFamily: 'var(--font-dancing), cursive',
+                  fontSize: '0.95rem',
+                  color: '#3d1a1a',
+                  mb: 1,
+                }}
+              >
+                Kính mời:
+              </Typography>
+              <Box sx={{ borderBottom: '1px dotted #8B1C1C', mb: 0.8 }} />
+              <Box sx={{ borderBottom: '1px dotted #8B1C1C' }} />
+            </Box>
 
-          {/* Date & Location */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.1, duration: 0.9 }}
-          >
-            <Typography
-              variant="h5"
-              sx={{ color: '#7a6652', mb: 0.5, fontStyle: 'italic', fontSize: { xs: '1rem', sm: '1.2rem' } }}
+            {/* Open button */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.3, duration: 0.7 }}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              style={{ marginTop: 20 }}
             >
-              Thứ Bảy · 30 tháng 8 năm 2025
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{ letterSpacing: '0.22em', color: '#9b84b4', opacity: 0.9, mb: 4.5 }}
-            >
-              DIÊN KHÁNH · KHÁNH HÒA
-            </Typography>
+              <Box
+                id="open-invitation-btn"
+                onClick={onOpen}
+                sx={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 1,
+                  cursor: 'pointer',
+                  background: '#C9A040',
+                  color: '#3d1a1a',
+                  px: 4,
+                  py: 1.5,
+                  borderRadius: '2px',
+                  fontFamily: 'var(--font-oswald)',
+                  fontSize: '0.8rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.2em',
+                  boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
+                  transition: 'all 0.25s ease',
+                  '&:hover': {
+                    background: '#e0b045',
+                    boxShadow: '0 6px 24px rgba(0,0,0,0.3)',
+                  },
+                }}
+              >
+                💌 MỞ THIỆP
+              </Box>
+            </motion.div>
           </motion.div>
-
-          {/* Open button */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.3, duration: 0.8 }}
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-          >
-            <Button
-              id="open-invitation-btn"
-              variant="contained"
-              color="primary"
-              size="large"
-              onClick={onOpen}
-              sx={{
-                fontSize: '0.82rem',
-                px: 6,
-                py: 1.7,
-                letterSpacing: '0.15em',
-                background: 'linear-gradient(135deg, #b09cc8 0%, #9b84b4 100%)',
-                boxShadow: '0 6px 24px rgba(155, 132, 180, 0.22)',
-                '&:hover': {
-                  background: 'linear-gradient(135deg, #9b84b4 0%, #7a6698 100%)',
-                  boxShadow: '0 10px 32px rgba(155, 132, 180, 0.32)',
-                },
-              }}
-            >
-              💌 Mở thiệp
-            </Button>
-          </motion.div>
-
-          {/* Bottom ornament */}
-          <Box
-            sx={{ position: 'absolute', bottom: 14, left: 18, color: '#c9a96e', fontSize: '1.2rem', opacity: 0.4 }}
-          >
-            ❧
-          </Box>
-          <Box
-            sx={{
-              position: 'absolute',
-              bottom: 14,
-              right: 18,
-              color: '#c9a96e',
-              fontSize: '1.2rem',
-              opacity: 0.4,
-              transform: 'scaleX(-1)',
-            }}
-          >
-            ❧
-          </Box>
         </Box>
       </motion.div>
     </Box>

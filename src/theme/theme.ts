@@ -1,103 +1,103 @@
 import { createTheme } from '@mui/material/styles';
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Palette cảm hứng từ chungdoi.com – "Hoa Mộc Ivory"
-//   Nền kem trắng ấm áp (ivory), điểm nhấn lavender nhạt & vàng đồng tinh tế
-//   Không dùng gradient chói; mọi màu đều nhẹ nhàng, thanh lịch
+// Palette "Cô Ba Đỏ" – Vietnamese traditional wedding card
+//   Deep red  #8B1C1C  |  Cream parchment  #F5EDD4
+//   Dark teal #2D5A4A  |  Gold             #C9A040
 // ─────────────────────────────────────────────────────────────────────────────
 const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      light: '#e8dff0',   // lavender rất nhạt
-      main: '#9b84b4',    // lavender trung tính – không chói
-      dark: '#6b5a8a',    // tím trầm sang trọng
-      contrastText: '#ffffff',
+      light: '#c0392b',
+      main: '#8B1C1C',   // deep red
+      dark: '#5c0f0f',
+      contrastText: '#F5EDD4',
     },
     secondary: {
-      light: '#f5efe0',   // kem vàng nhạt
-      main: '#c9a96e',    // vàng đồng ấm
-      dark: '#a07840',    // vàng đồng đậm
-      contrastText: '#ffffff',
+      light: '#4a8a72',
+      main: '#2D5A4A',   // dark teal/green border
+      dark: '#1a3a2e',
+      contrastText: '#F5EDD4',
     },
     background: {
-      default: '#faf7f2', // ivory kem ấm – không trắng trơn
-      paper: '#fffdf8',   // trắng ngà
+      default: '#F5EDD4',  // cream parchment
+      paper: '#FAF3E0',
     },
     text: {
-      primary: '#3d2f1e',   // nâu cổ điển – dễ đọc, không chói
-      secondary: '#7a6652', // nâu nhạt ấm áp
+      primary: '#1a0a0a',   // near black
+      secondary: '#3d1a1a',
     },
-    divider: 'rgba(155, 132, 180, 0.15)',
+    divider: 'rgba(141, 28, 28, 0.2)',
   },
   typography: {
-    fontFamily: '"Cormorant Garamond", "Playfair Display", "Georgia", serif',
+    fontFamily: 'var(--font-lato), "Helvetica Neue", Arial, sans-serif',
     h1: {
-      fontFamily: '"Cormorant Garamond", serif',
+      fontFamily: 'var(--font-oswald), "Arial Narrow", sans-serif',
       fontWeight: 700,
-      letterSpacing: '0.04em',
+      letterSpacing: '0.05em',
+      textTransform: 'uppercase',
     },
     h2: {
-      fontFamily: '"Cormorant Garamond", serif',
+      fontFamily: 'var(--font-oswald), "Arial Narrow", sans-serif',
+      fontWeight: 700,
+      letterSpacing: '0.04em',
+      textTransform: 'uppercase',
+    },
+    h3: {
+      fontFamily: 'var(--font-oswald), "Arial Narrow", sans-serif',
       fontWeight: 600,
       letterSpacing: '0.03em',
     },
-    h3: {
-      fontFamily: '"Cormorant Garamond", serif',
-      fontWeight: 600,
-    },
     h4: {
-      fontFamily: '"Cormorant Garamond", serif',
-      fontWeight: 500,
+      fontFamily: 'var(--font-playfair), Georgia, serif',
+      fontWeight: 700,
     },
     h5: {
-      fontFamily: '"Cormorant Garamond", serif',
-      fontWeight: 500,
+      fontFamily: 'var(--font-playfair), Georgia, serif',
+      fontWeight: 600,
     },
     h6: {
-      fontFamily: '"Cormorant Garamond", serif',
-      fontWeight: 400,
+      fontFamily: 'var(--font-playfair), Georgia, serif',
+      fontWeight: 500,
     },
     body1: {
-      fontFamily: '"Lato", "Helvetica Neue", sans-serif',
-      letterSpacing: '0.015em',
-      lineHeight: 1.85,
-      color: '#3d2f1e',
+      fontFamily: 'var(--font-lato), "Helvetica Neue", sans-serif',
+      letterSpacing: '0.02em',
+      lineHeight: 1.8,
     },
     body2: {
-      fontFamily: '"Lato", "Helvetica Neue", sans-serif',
+      fontFamily: 'var(--font-lato), "Helvetica Neue", sans-serif',
       letterSpacing: '0.01em',
-      color: '#7a6652',
     },
     button: {
-      fontFamily: '"Lato", sans-serif',
-      letterSpacing: '0.1em',
+      fontFamily: 'var(--font-oswald), sans-serif',
+      letterSpacing: '0.15em',
       textTransform: 'uppercase',
       fontWeight: 600,
     },
     overline: {
-      fontFamily: '"Lato", sans-serif',
+      fontFamily: 'var(--font-lato), sans-serif',
       letterSpacing: '0.25em',
     },
     caption: {
-      fontFamily: '"Lato", sans-serif',
+      fontFamily: 'var(--font-dancing), cursive',
+      fontSize: '1rem',
     },
   },
-  shape: {
-    borderRadius: 12,
-  },
+  shape: { borderRadius: 4 },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: '50px',
-          padding: '12px 36px',
+          borderRadius: '2px',
+          padding: '14px 40px',
           fontSize: '0.82rem',
           boxShadow: 'none',
-          transition: 'all 0.35s ease',
+          transition: 'all 0.25s ease',
           '&:hover': {
-            boxShadow: '0 6px 20px rgba(155, 132, 180, 0.25)',
-            transform: 'translateY(-2px)',
+            boxShadow: '0 4px 16px rgba(139,28,28,0.3)',
+            transform: 'translateY(-1px)',
           },
         },
       },
@@ -105,21 +105,20 @@ const theme = createTheme({
         {
           props: { variant: 'contained', color: 'primary' },
           style: {
-            background: 'linear-gradient(135deg, #b09cc8 0%, #9b84b4 100%)',
-            '&:hover': {
-              background: 'linear-gradient(135deg, #9b84b4 0%, #7a6698 100%)',
-            },
+            background: '#8B1C1C',
+            color: '#F5EDD4',
+            '&:hover': { background: '#5c0f0f' },
           },
         },
         {
           props: { variant: 'outlined', color: 'primary' },
           style: {
-            borderWidth: '1.5px',
-            borderColor: '#9b84b4',
-            color: '#6b5a8a',
+            borderWidth: '2px',
+            borderColor: '#8B1C1C',
+            color: '#8B1C1C',
             '&:hover': {
-              borderWidth: '1.5px',
-              background: 'rgba(155, 132, 180, 0.06)',
+              borderWidth: '2px',
+              background: 'rgba(139,28,28,0.05)',
             },
           },
         },
@@ -129,43 +128,32 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           '& .MuiOutlinedInput-root': {
-            borderRadius: '10px',
-            background: 'rgba(255,253,248,0.8)',
+            borderRadius: '2px',
+            background: 'rgba(255,248,230,0.8)',
             '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-              borderColor: '#9b84b4',
-              borderWidth: '1.5px',
+              borderColor: '#8B1C1C',
+              borderWidth: '2px',
             },
             '&:hover .MuiOutlinedInput-notchedOutline': {
-              borderColor: '#b09cc8',
+              borderColor: '#c0392b',
             },
           },
           '& .MuiInputLabel-root.Mui-focused': {
-            color: '#9b84b4',
+            color: '#8B1C1C',
           },
         },
       },
     },
     MuiPaper: {
       styleOverrides: {
-        root: {
-          backgroundImage: 'none',
-        },
+        root: { backgroundImage: 'none' },
       },
     },
     MuiRadio: {
       styleOverrides: {
         root: {
-          color: '#c2b0d8',
-          '&.Mui-checked': {
-            color: '#9b84b4',
-          },
-        },
-      },
-    },
-    MuiDivider: {
-      styleOverrides: {
-        root: {
-          borderColor: 'rgba(155, 132, 180, 0.12)',
+          color: '#c0392b',
+          '&.Mui-checked': { color: '#8B1C1C' },
         },
       },
     },
