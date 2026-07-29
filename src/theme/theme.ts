@@ -1,29 +1,34 @@
 import { createTheme } from '@mui/material/styles';
 
-// "Tím Pastel" – elegant pastel purple wedding palette
+// ─────────────────────────────────────────────────────────────────────────────
+// Palette cảm hứng từ chungdoi.com – "Hoa Mộc Ivory"
+//   Nền kem trắng ấm áp (ivory), điểm nhấn lavender nhạt & vàng đồng tinh tế
+//   Không dùng gradient chói; mọi màu đều nhẹ nhàng, thanh lịch
+// ─────────────────────────────────────────────────────────────────────────────
 const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      light: '#f3e8ff',   // lavender mist
-      main: '#c084fc',    // pastel purple
-      dark: '#9333ea',    // deep violet
+      light: '#e8dff0',   // lavender rất nhạt
+      main: '#9b84b4',    // lavender trung tính – không chói
+      dark: '#6b5a8a',    // tím trầm sang trọng
       contrastText: '#ffffff',
     },
     secondary: {
-      light: '#fce7f3',   // blush rose mist
-      main: '#f9a8d4',    // pastel pink
-      dark: '#ec4899',    // deep rose
+      light: '#f5efe0',   // kem vàng nhạt
+      main: '#c9a96e',    // vàng đồng ấm
+      dark: '#a07840',    // vàng đồng đậm
       contrastText: '#ffffff',
     },
     background: {
-      default: '#fdf8ff', // very soft lavender white
-      paper: '#ffffff',
+      default: '#faf7f2', // ivory kem ấm – không trắng trơn
+      paper: '#fffdf8',   // trắng ngà
     },
     text: {
-      primary: '#3b1f5e',   // deep romantic purple
-      secondary: '#7c3aed', // violet
+      primary: '#3d2f1e',   // nâu cổ điển – dễ đọc, không chói
+      secondary: '#7a6652', // nâu nhạt ấm áp
     },
+    divider: 'rgba(155, 132, 180, 0.15)',
   },
   typography: {
     fontFamily: '"Cormorant Garamond", "Playfair Display", "Georgia", serif',
@@ -55,18 +60,27 @@ const theme = createTheme({
     },
     body1: {
       fontFamily: '"Lato", "Helvetica Neue", sans-serif',
-      letterSpacing: '0.02em',
-      lineHeight: 1.8,
+      letterSpacing: '0.015em',
+      lineHeight: 1.85,
+      color: '#3d2f1e',
     },
     body2: {
       fontFamily: '"Lato", "Helvetica Neue", sans-serif',
       letterSpacing: '0.01em',
+      color: '#7a6652',
     },
     button: {
       fontFamily: '"Lato", sans-serif',
-      letterSpacing: '0.12em',
+      letterSpacing: '0.1em',
       textTransform: 'uppercase',
       fontWeight: 600,
+    },
+    overline: {
+      fontFamily: '"Lato", sans-serif',
+      letterSpacing: '0.25em',
+    },
+    caption: {
+      fontFamily: '"Lato", sans-serif',
     },
   },
   shape: {
@@ -78,11 +92,11 @@ const theme = createTheme({
         root: {
           borderRadius: '50px',
           padding: '12px 36px',
-          fontSize: '0.85rem',
+          fontSize: '0.82rem',
           boxShadow: 'none',
-          transition: 'all 0.3s ease',
+          transition: 'all 0.35s ease',
           '&:hover': {
-            boxShadow: '0 8px 24px rgba(192, 132, 252, 0.4)',
+            boxShadow: '0 6px 20px rgba(155, 132, 180, 0.25)',
             transform: 'translateY(-2px)',
           },
         },
@@ -91,9 +105,9 @@ const theme = createTheme({
         {
           props: { variant: 'contained', color: 'primary' },
           style: {
-            background: 'linear-gradient(135deg, #c084fc 0%, #a855f7 100%)',
+            background: 'linear-gradient(135deg, #b09cc8 0%, #9b84b4 100%)',
             '&:hover': {
-              background: 'linear-gradient(135deg, #a855f7 0%, #9333ea 100%)',
+              background: 'linear-gradient(135deg, #9b84b4 0%, #7a6698 100%)',
             },
           },
         },
@@ -101,8 +115,11 @@ const theme = createTheme({
           props: { variant: 'outlined', color: 'primary' },
           style: {
             borderWidth: '1.5px',
+            borderColor: '#9b84b4',
+            color: '#6b5a8a',
             '&:hover': {
               borderWidth: '1.5px',
+              background: 'rgba(155, 132, 180, 0.06)',
             },
           },
         },
@@ -112,14 +129,18 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           '& .MuiOutlinedInput-root': {
-            borderRadius: '12px',
+            borderRadius: '10px',
+            background: 'rgba(255,253,248,0.8)',
             '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-              borderColor: '#c084fc',
-              borderWidth: '2px',
+              borderColor: '#9b84b4',
+              borderWidth: '1.5px',
+            },
+            '&:hover .MuiOutlinedInput-notchedOutline': {
+              borderColor: '#b09cc8',
             },
           },
           '& .MuiInputLabel-root.Mui-focused': {
-            color: '#c084fc',
+            color: '#9b84b4',
           },
         },
       },
@@ -128,6 +149,23 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           backgroundImage: 'none',
+        },
+      },
+    },
+    MuiRadio: {
+      styleOverrides: {
+        root: {
+          color: '#c2b0d8',
+          '&.Mui-checked': {
+            color: '#9b84b4',
+          },
+        },
+      },
+    },
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          borderColor: 'rgba(155, 132, 180, 0.12)',
         },
       },
     },

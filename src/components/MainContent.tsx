@@ -40,36 +40,36 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
       <Typography
         variant="overline"
         sx={{
-          color: 'primary.main',
+          color: 'secondary.main',
           letterSpacing: '0.35em',
           display: 'block',
           mb: 1,
           fontFamily: '"Lato", sans-serif',
-          fontSize: '0.7rem',
+          fontSize: '0.68rem',
         }}
       >
         ✦ ✦ ✦
       </Typography>
       <Typography
         variant="h3"
-        sx={{
-          background: 'linear-gradient(135deg, #9333ea, #c084fc)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text',
-        }}
+        sx={{ color: 'primary.dark' }}
       >
         {children}
       </Typography>
       <Box
         sx={{
-          width: 60,
-          height: '2px',
-          background: 'linear-gradient(90deg, transparent, #c084fc, transparent)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 1.5,
           mx: 'auto',
           mt: 2,
+          width: 'fit-content',
         }}
-      />
+      >
+        <Box sx={{ width: 36, height: '1px', background: 'linear-gradient(90deg, transparent, #c9a96e)' }} />
+        <Box sx={{ width: 6, height: 6, borderRadius: '50%', background: '#c9a96e', opacity: 0.7 }} />
+        <Box sx={{ width: 36, height: '1px', background: 'linear-gradient(90deg, #c9a96e, transparent)' }} />
+      </Box>
     </Box>
   );
 }
@@ -94,8 +94,8 @@ function TimelineEvent({ time, title, description, icon, isLast = false }: Event
             left: 27,
             top: 56,
             bottom: -24,
-            width: '2px',
-            background: 'linear-gradient(to bottom, #c084fc, transparent)',
+            width: '1px',
+            background: 'linear-gradient(to bottom, #c9a96e80, transparent)',
           }}
         />
       )}
@@ -105,15 +105,14 @@ function TimelineEvent({ time, title, description, icon, isLast = false }: Event
           width: 56,
           height: 56,
           borderRadius: '50%',
-          background: 'linear-gradient(135deg, #f3e8ff, #ede9fe)',
-          border: '2px solid',
-          borderColor: 'primary.light',
+          background: 'linear-gradient(135deg, #f7f0e6, #ede8f5)',
+          border: '1.5px solid rgba(201,169,110,0.35)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          fontSize: '1.5rem',
+          fontSize: '1.4rem',
           flexShrink: 0,
-          boxShadow: '0 4px 12px rgba(192, 132, 252, 0.2)',
+          boxShadow: '0 3px 10px rgba(61,47,30,0.07)',
         }}
       >
         {icon}
@@ -169,7 +168,7 @@ export default function MainContent() {
   return (
     <Box
       component="main"
-      sx={{ background: 'linear-gradient(180deg, #fdf8ff 0%, #fff 50%, #fdf8ff 100%)' }}
+      sx={{ background: 'linear-gradient(180deg, #faf7f2 0%, #fffdf8 40%, #faf7f2 100%)' }}
     >
       {/* ── Hero Section ── */}
       <Box
@@ -195,7 +194,7 @@ export default function MainContent() {
               position: 'absolute',
               inset: 0,
               background:
-                'linear-gradient(to bottom, rgba(139,92,246,0.15) 0%, transparent 40%, rgba(253,248,255,1) 100%)',
+                'linear-gradient(to bottom, rgba(61,47,30,0.1) 0%, transparent 35%, rgba(250,247,242,1) 100%)',
             }}
           />
         </motion.div>
@@ -244,18 +243,18 @@ export default function MainContent() {
       {/* ── Love Quote ── */}
       <FadeInSection>
         <Container maxWidth="sm" sx={{ py: { xs: 6, md: 8 }, textAlign: 'center' }}>
-          <FavoriteIcon sx={{ color: 'secondary.main', fontSize: 32, mb: 2 }} />
+          <FavoriteIcon sx={{ color: 'secondary.main', fontSize: 28, mb: 2, opacity: 0.8 }} />
           <Typography
             variant="h5"
             color="text.secondary"
-            sx={{ lineHeight: 1.8, fontStyle: 'italic' }}
+            sx={{ lineHeight: 1.9, fontStyle: 'italic', fontSize: { xs: '1.05rem', sm: '1.25rem' } }}
           >
             &ldquo;Tình yêu không phải là nhìn nhau, mà là cùng nhau nhìn về một hướng.&rdquo;
           </Typography>
           <Typography
             variant="caption"
-            color="primary.main"
-            sx={{ mt: 2, display: 'block', letterSpacing: '0.15em' }}
+            color="secondary.main"
+            sx={{ mt: 2, display: 'block', letterSpacing: '0.15em', opacity: 0.85 }}
           >
             — Antoine de Saint-Exupéry
           </Typography>
@@ -274,11 +273,11 @@ export default function MainContent() {
             elevation={0}
             sx={{
               p: { xs: 4, sm: 6 },
-              borderRadius: '24px',
-              background: 'rgba(255,255,255,0.8)',
-              backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(192, 132, 252, 0.15)',
-              boxShadow: '0 8px 40px rgba(139, 92, 246, 0.06)',
+              borderRadius: '20px',
+              background: 'rgba(255,253,248,0.9)',
+              backdropFilter: 'blur(8px)',
+              border: '1px solid rgba(201, 169, 110, 0.2)',
+              boxShadow: '0 4px 32px rgba(61,47,30,0.06)',
             }}
           >
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -310,8 +309,8 @@ export default function MainContent() {
                   px: 3,
                   py: 1.5,
                   borderRadius: '50px',
-                  background: 'linear-gradient(135deg, #f3e8ff, #fce7f3)',
-                  border: '1px solid rgba(192, 132, 252, 0.2)',
+                  background: 'linear-gradient(135deg, #f7f0e6, #ede8f5)',
+                  border: '1px solid rgba(201, 169, 110, 0.25)',
                 }}
               >
                 <LocationOnIcon sx={{ color: 'primary.main', fontSize: 20 }} />
@@ -359,11 +358,11 @@ export default function MainContent() {
               elevation={0}
               sx={{
                 p: { xs: 4, sm: 6 },
-                borderRadius: '24px',
-                background: 'rgba(255,255,255,0.85)',
-                backdropFilter: 'blur(12px)',
-                border: '1px solid rgba(192, 132, 252, 0.18)',
-                boxShadow: '0 8px 48px rgba(139, 92, 246, 0.08)',
+                borderRadius: '20px',
+                background: 'rgba(255,253,248,0.9)',
+                backdropFilter: 'blur(8px)',
+                border: '1px solid rgba(201, 169, 110, 0.18)',
+                boxShadow: '0 4px 32px rgba(61,47,30,0.06)',
               }}
             >
               <RSVPForm />
@@ -385,11 +384,11 @@ export default function MainContent() {
               elevation={0}
               sx={{
                 p: { xs: 4, sm: 6 },
-                borderRadius: '24px',
-                background: 'rgba(255,255,255,0.85)',
-                backdropFilter: 'blur(12px)',
-                border: '1px solid rgba(192, 132, 252, 0.18)',
-                boxShadow: '0 8px 48px rgba(139, 92, 246, 0.08)',
+                borderRadius: '20px',
+                background: 'rgba(255,253,248,0.9)',
+                backdropFilter: 'blur(8px)',
+                border: '1px solid rgba(201, 169, 110, 0.18)',
+                boxShadow: '0 4px 32px rgba(61,47,30,0.06)',
                 textAlign: 'center',
               }}
             >
@@ -401,11 +400,11 @@ export default function MainContent() {
               {/* Bank info */}
               <Box
                 sx={{
-                  background: 'linear-gradient(135deg, #f3e8ff 0%, #fce7f3 100%)',
-                  borderRadius: '16px',
+                  background: 'linear-gradient(135deg, #f7f0e6 0%, #ede8f5 100%)',
+                  borderRadius: '14px',
                   p: 3,
                   mb: 4,
-                  border: '1px solid rgba(192, 132, 252, 0.2)',
+                  border: '1px solid rgba(201, 169, 110, 0.2)',
                 }}
               >
                 <Typography variant="h6" color="primary.dark" gutterBottom sx={{ fontWeight: 600 }}>
@@ -433,8 +432,8 @@ export default function MainContent() {
               {/* QR Code */}
               <Typography
                 variant="overline"
-                color="primary.main"
-                sx={{ letterSpacing: '0.2em', display: 'block', mb: 2 }}
+                color="secondary.main"
+                sx={{ letterSpacing: '0.2em', display: 'block', mb: 2, opacity: 0.85 }}
               >
                 hoặc quét mã QR
               </Typography>
@@ -442,11 +441,10 @@ export default function MainContent() {
                 sx={{
                   display: 'inline-block',
                   p: 2,
-                  borderRadius: '16px',
-                  border: '2px solid',
-                  borderColor: 'primary.light',
-                  background: 'white',
-                  boxShadow: '0 8px 24px rgba(192, 132, 252, 0.15)',
+                  borderRadius: '14px',
+                  border: '1.5px solid rgba(201,169,110,0.3)',
+                  background: '#fffdf8',
+                  boxShadow: '0 6px 20px rgba(61,47,30,0.08)',
                 }}
               >
                 <Image
@@ -468,26 +466,23 @@ export default function MainContent() {
         sx={{
           py: 6,
           textAlign: 'center',
-          background: 'linear-gradient(135deg, #f3e8ff 0%, #fce7f3 100%)',
-          borderTop: '1px solid rgba(192, 132, 252, 0.15)',
+          background: 'linear-gradient(180deg, #f7f0e6 0%, #faf7f2 100%)',
+          borderTop: '1px solid rgba(201, 169, 110, 0.15)',
         }}
       >
         <Typography
           variant="h4"
           sx={{
-            background: 'linear-gradient(135deg, #9333ea, #ec4899)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
+            color: '#6b5a8a',
             mb: 1,
           }}
         >
           Vũ &amp; Nhím
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ letterSpacing: '0.2em', mb: 2 }}>
+        <Typography variant="body2" sx={{ letterSpacing: '0.2em', mb: 2, color: '#9b84b4' }}>
           30 · 08 · 2025
         </Typography>
-        <FavoriteIcon sx={{ color: 'secondary.main', fontSize: 20 }} />
+        <FavoriteIcon sx={{ color: '#c9a96e', fontSize: 18, opacity: 0.8 }} />
         <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 2 }}>
           Trân trọng cảm ơn sự hiện diện của quý khách
         </Typography>

@@ -9,6 +9,18 @@
 :root {
   --font-cormorant: 'Cormorant Garamond', serif;
   --font-lato: 'Lato', sans-serif;
+
+  /* Ivory palette tokens */
+  --color-ivory: #faf7f2;
+  --color-ivory-dark: #f2ece0;
+  --color-cream: #fffdf8;
+  --color-lavender: #9b84b4;
+  --color-lavender-light: #d4c8e4;
+  --color-lavender-mist: #ede8f5;
+  --color-gold: #c9a96e;
+  --color-gold-light: #f0e4c8;
+  --color-brown: #3d2f1e;
+  --color-brown-light: #7a6652;
 }
 
 html {
@@ -17,41 +29,41 @@ html {
 
 body {
   min-height: 100vh;
-  background-color: #fdf8ff;
-  color: #3b1f5e;
+  background-color: var(--color-ivory);
+  color: var(--color-brown);
   font-family: var(--font-lato), 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar – gold/lavender */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f3e8ff;
+  background: var(--color-ivory-dark);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #c084fc, #f9a8d4);
+  background: linear-gradient(to bottom, var(--color-lavender-light), var(--color-gold-light));
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #a855f7, #ec4899);
+  background: linear-gradient(to bottom, var(--color-lavender), var(--color-gold));
 }
 
-/* Selection color */
+/* Selection */
 ::selection {
-  background-color: rgba(192, 132, 252, 0.25);
-  color: #7c3aed;
+  background-color: rgba(155, 132, 180, 0.18);
+  color: var(--color-brown);
 }
 
-/* Focus outline for accessibility */
+/* Focus */
 :focus-visible {
-  outline: 2px solid #c084fc;
+  outline: 2px solid var(--color-lavender);
   outline-offset: 2px;
 }
 
