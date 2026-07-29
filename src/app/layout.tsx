@@ -1,39 +1,6 @@
 import type { Metadata } from 'next';
-import { Playfair_Display, Dancing_Script, Oswald, Lato } from 'next/font/google';
 import ThemeRegistry from '@/theme/ThemeRegistry';
 import './globals.css';
-
-// Vintage serif cho heading – giống font thiệp cưới cổ điển
-const playfair = Playfair_Display({
-  variable: '--font-playfair',
-  subsets: ['latin', 'vietnamese'],
-  weight: ['400', '500', '600', '700', '800', '900'],
-  display: 'swap',
-});
-
-// Script font cho "Trân trọng Kính mời", "Vào lúc" – chữ viết tay
-const dancingScript = Dancing_Script({
-  variable: '--font-dancing',
-  subsets: ['latin', 'vietnamese'],
-  weight: ['400', '500', '600', '700'],
-  display: 'swap',
-});
-
-// Condensed bold cho tên cặp đôi – vintage
-const oswald = Oswald({
-  variable: '--font-oswald',
-  subsets: ['latin', 'vietnamese'],
-  weight: ['400', '500', '600', '700'],
-  display: 'swap',
-});
-
-// Body text
-const lato = Lato({
-  variable: '--font-lato',
-  subsets: ['latin'],
-  weight: ['300', '400', '700'],
-  display: 'swap',
-});
 
 export const metadata: Metadata = {
   title: 'Thiệp Cưới – Hoài Vũ & Thục Trinh',
@@ -52,7 +19,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi" className={`${playfair.variable} ${dancingScript.variable} ${oswald.variable} ${lato.variable}`}>
+    <html lang="vi">
+      <head>
+        {/* Google Fonts: Lora, Righteous & Monoton/Bungee (Retro Sài Gòn Fonts) */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Righteous&family=Bungee&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body>
         <ThemeRegistry>{children}</ThemeRegistry>
       </body>

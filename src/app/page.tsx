@@ -1,46 +1,56 @@
 'use client';
 
 import React, { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Cover from '@/components/Cover';
 import MainContent from '@/components/MainContent';
+import AudioPlayer from '@/components/AudioPlayer';
 
-export default function HomePage() {
+export default function Home() {
   const [isOpened, setIsOpened] = useState(false);
+  const [isPlayingMusic, setIsPlayingMusic] = useState(false);
+
+  const handleOpenCover = () => {
+    setIsOpened(true);
+    setIsPlayingMusic(true);
+  };
+
+  const handleToggleMusic = () => {
+    setIsPlayingMusic((prev) => !prev);
+  };
 
   return (
     <>
-      <AnimatePresence>
-        {!isOpened && (
+      <AnimatePresence mode="wait">
+        {!isOpened ? (
           <motion.div
             key="cover"
-            initial={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 1, scale: 1 }}
             exit={{
               opacity: 0,
-              y: -60,
-              scale: 0.97,
-              filter: 'blur(4px)',
+              scale: 1.15,
+              y: -50,
+              transition: { duration: 0.9, ease: [0.43, 0.13, 0.23, 0.96] },
             }}
-            transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}
-            style={{ position: 'fixed', inset: 0, zIndex: 100 }}
+            style={{ width: '100%', minHeight: '100vh' }}
           >
-            <Cover onOpen={() => setIsOpened(true)} />
+            <Cover onOpen={handleOpenCover} />
           </motion.div>
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {isOpened && (
+        ) : (
           <motion.div
             key="main"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            style={{ width: '100%', minHeight: '100vh' }}
           >
             <MainContent />
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Music Player */}
+      <AudioPlayer isPlaying={isPlayingMusic} onToggle={handleToggleMusic} />
     </>
   );
 }

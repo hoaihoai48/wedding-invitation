@@ -1,3 +1,36 @@
+/* Font khai báo chính chủ từ demo Cô Ba Đỏ (Chung Đôi) */
+@font-face {
+  font-family: 'SVN-HC Marvin Visions';
+  src: url('/fonts/SVN-HC-Marvin-Visions.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SVN-HC Pacifico';
+  src: url('/fonts/SVN-HC-Pacifico.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SVN-HC Carosello';
+  src: url('/fonts/SVN-HC-Carosello.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'UNI Chu truyen thong';
+  src: url('/fonts/UNI_Chu_truyen_thong.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 *,
 *::before,
 *::after {
@@ -7,20 +40,11 @@
 }
 
 :root {
-  --font-cormorant: 'Cormorant Garamond', serif;
-  --font-lato: 'Lato', sans-serif;
-
-  /* Ivory palette tokens */
-  --color-ivory: #faf7f2;
-  --color-ivory-dark: #f2ece0;
-  --color-cream: #fffdf8;
-  --color-lavender: #9b84b4;
-  --color-lavender-light: #d4c8e4;
-  --color-lavender-mist: #ede8f5;
-  --color-gold: #c9a96e;
-  --color-gold-light: #f0e4c8;
-  --color-brown: #3d2f1e;
-  --color-brown-light: #7a6652;
+  --color-bg-dark: #241a12;
+  --color-card-bg: #f8f3e0;
+  --color-red-primary: #c32a29;
+  --color-teal-heading: #1e3a34;
+  --color-brown-text: #542e08;
 }
 
 html {
@@ -29,45 +53,65 @@ html {
 
 body {
   min-height: 100vh;
-  background-color: var(--color-ivory);
-  color: var(--color-brown);
-  font-family: var(--font-lato), 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--color-bg-dark);
+  color: var(--color-brown-text);
+  font-family: 'Lora', 'Baskerville', 'Times New Roman', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-/* Custom scrollbar – gold/lavender */
+/* Fall particle animation */
+@keyframes ambient-fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.85;
+  }
+  90% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(105vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Shine button animation */
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  20% {
+    left: 200%;
+  }
+  100% {
+    left: 200%;
+  }
+}
+
+/* Seal pulse animation */
+@keyframes seal-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+}
+
+/* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-ivory-dark);
+  background: #352518;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, var(--color-lavender-light), var(--color-gold-light));
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, var(--color-lavender), var(--color-gold));
-}
-
-/* Selection */
-::selection {
-  background-color: rgba(155, 132, 180, 0.18);
-  color: var(--color-brown);
-}
-
-/* Focus */
-:focus-visible {
-  outline: 2px solid var(--color-lavender);
-  outline-offset: 2px;
-}
-
-/* Google Maps iframe */
-iframe {
-  display: block;
+  background: #c32a29;
+  border-radius: 3px;
 }

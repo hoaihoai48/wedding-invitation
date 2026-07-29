@@ -1,232 +1,170 @@
 'use client';
 
 import React, { useState } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, Controller } from 'react-hook-form';
-import {
-  Box,
-  Button,
-  FormControl,
-  FormControlLabel,
-  FormHelperText,
-  FormLabel,
-  Radio,
-  RadioGroup,
-  TextField,
-  Typography,
-  Snackbar,
-  Alert,
-  CircularProgress,
-} from '@mui/material';
-import Slide from '@mui/material/Slide';
-import { rsvpSchema, RSVPInput, RSVPPayload, submitRSVP } from '@/lib/rsvpSchema';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import CheckCircleOutlineIcon from '@mui/icons-material/TaskAlt';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
+interface GuestWish {
+  name: string;
+  wish: string;
+  time: string;
+}
 
 export default function RSVPForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarError, setSnackbarError] = useState('');
+  const [name, setName] = useState('');
+  const [wish, setWish] = useState('');
 
-  const {
-    control,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<RSVPInput>({
-    resolver: zodResolver(rsvpSchema),
-    defaultValues: {
-      name: '',
-      attendance: 'attending' as const,
-      guestCount: 1,
-      wishes: '',
+  // Sample guest wishes like in demo image 2
+  const [wishes, setWishes] = useState<GuestWish[]>([
+    {
+      name: 'NGUYỄN HÙNG HẬU',
+      wish: 'CHÚC ANH CHỊ HẠNH PHÚC TRĂM NĂM AHIHI',
+      time: '15:26:44 26/7/2026',
     },
-  });
+    {
+      name: 'BẢO LỘC & DIÊN KHÁNH',
+      wish: 'Chúc hai bạn trăm năm hạnh phúc, gia đình êm ấm viên mãn!',
+      time: '14:10:20 26/7/2026',
+    },
+  ]);
 
-  const onSubmit = async (data: RSVPInput) => {
-    setIsSubmitting(true);
-    try {
-      await submitRSVP(data as RSVPPayload);
-      setSubmitSuccess(true);
-      reset();
-    } catch (err) {
-      setSnackbarError('Có lỗi xảy ra. Vui lòng thử lại sau.');
-      setSnackbarOpen(true);
-    } finally {
-      setIsSubmitting(false);
-    }
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name.trim() || !wish.trim()) return;
+
+    const now = new Date();
+    const timeStr = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()} ${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
+
+    setWishes([
+      { name: name.toUpperCase(), wish: wish.toUpperCase(), time: timeStr },
+      ...wishes,
+    ]);
+
+    setName('');
+    setWish('');
   };
 
-  if (submitSuccess) {
-    return (
+  return (
+    <Box sx={{ width: '100%' }}>
+      {/* Input Form Box (Matching Image 2 Demo) */}
       <Box
+        component="form"
+        onSubmit={handleSubmit}
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 3,
-          py: 6,
-          px: 4,
-          textAlign: 'center',
+          p: 3,
+          borderRadius: '12px',
+          border: '1.5px solid rgba(84, 46, 8, 0.35)',
+          background: 'rgba(255, 253, 248, 0.4)',
+          mb: 3,
         }}
       >
-        <CheckCircleOutlineIcon sx={{ fontSize: 72, color: 'primary.main', opacity: 0.9 }} />
-        <Typography variant="h4" color="primary.dark" sx={{ fontWeight: 600 }}>
-          Cảm ơn bạn! 💜
-        </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 400 }}>
-          Xác nhận tham dự của bạn đã được ghi nhận. Chúng mình rất mong được gặp bạn trong ngày trọng đại này!
-        </Typography>
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => setSubmitSuccess(false)}
-          sx={{ mt: 2 }}
-        >
-          Gửi lại
-        </Button>
+        {/* Name input */}
+        <Box sx={{ mb: 2 }}>
+          <Box
+            component="input"
+            type="text"
+            placeholder="Nhập tên của bạn*"
+            value={name}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+            required
+            sx={{
+              width: '100%',
+              p: 1.5,
+              borderRadius: '8px',
+              border: '1px solid rgba(84, 46, 8, 0.3)',
+              background: 'rgba(248, 243, 224, 0.6)',
+              fontSize: '0.9rem',
+              color: '#542e08',
+              outline: 'none',
+              fontFamily: '"Lora", serif',
+              '&:focus': {
+                borderColor: '#c32a29',
+              },
+            }}
+          />
+        </Box>
+
+        {/* Wish textarea */}
+        <Box sx={{ mb: 3 }}>
+          <Box
+            component="textarea"
+            rows={3}
+            placeholder="Nhập lời chúc của bạn*"
+            value={wish}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setWish(e.target.value)}
+            required
+            sx={{
+              width: '100%',
+              p: 1.5,
+              borderRadius: '8px',
+              border: '1px solid rgba(84, 46, 8, 0.3)',
+              background: 'rgba(248, 243, 224, 0.6)',
+              fontSize: '0.9rem',
+              color: '#542e08',
+              outline: 'none',
+              fontFamily: '"Lora", serif',
+              resize: 'none',
+              '&:focus': {
+                borderColor: '#c32a29',
+              },
+            }}
+          />
+        </Box>
+
+        {/* Submit button right-aligned dark brown (Matching Image 2 Demo) */}
+        <Box sx={{ textAlign: 'right' }}>
+          <Box
+            component="button"
+            type="submit"
+            sx={{
+              px: 4,
+              py: 1.2,
+              borderRadius: '50px',
+              backgroundColor: '#542e08',
+              color: '#f8f3e0',
+              border: 'none',
+              fontSize: '0.9rem',
+              fontWeight: 700,
+              fontFamily: '"Lora", serif',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              '&:hover': {
+                backgroundColor: '#381e05',
+                transform: 'translateY(-1px)',
+              },
+            }}
+          >
+            GỬI LỜI CHÚC
+          </Box>
+        </Box>
       </Box>
-    );
-  }
 
-  return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit(onSubmit)}
-      noValidate
-      sx={{ display: 'flex', flexDirection: 'column', gap: 3.5 }}
-    >
-      {/* Name */}
-      <Controller
-        name="name"
-        control={control}
-        render={({ field }) => (
-          <TextField
-            {...field}
-            id="rsvp-name"
-            label="Họ và tên"
-            fullWidth
-            required
-            error={!!errors.name}
-            helperText={errors.name?.message}
-            placeholder="Nguyễn Văn A"
-          />
-        )}
-      />
-
-      {/* Attendance */}
-      <Controller
-        name="attendance"
-        control={control}
-        render={({ field }) => (
-          <FormControl error={!!errors.attendance} component="fieldset">
-            <FormLabel
-              component="legend"
-              sx={{
-                color: 'text.primary',
-                fontFamily: 'Cormorant Garamond, serif',
-                fontSize: '1rem',
-                mb: 0.5,
-                '&.Mui-focused': { color: 'primary.main' },
-              }}
-            >
-              Bạn có thể tham dự không? *
-            </FormLabel>
-            <RadioGroup {...field} row>
-              <FormControlLabel
-                value="attending"
-                control={<Radio color="primary" />}
-                label="Sẽ tham dự 🥂"
-              />
-              <FormControlLabel
-                value="not_attending"
-                control={<Radio color="primary" />}
-                label="Tiếc quá, không đến được 😢"
-              />
-              <FormControlLabel
-                value="maybe"
-                control={<Radio color="primary" />}
-                label="Có thể sẽ đến 🤔"
-              />
-            </RadioGroup>
-            {errors.attendance && (
-              <FormHelperText>{errors.attendance.message}</FormHelperText>
-            )}
-          </FormControl>
-        )}
-      />
-
-      {/* Guest Count */}
-      <Controller
-        name="guestCount"
-        control={control}
-        render={({ field }) => (
-          <TextField
-            {...field}
-            id="rsvp-guest-count"
-            label="Số lượng khách (bao gồm bạn)"
-            type="number"
-            fullWidth
-            required
-            slotProps={{ htmlInput: { min: 0, max: 10 } }}
-            error={!!errors.guestCount}
-            helperText={errors.guestCount?.message}
-            onChange={(e) => field.onChange(Number(e.target.value))}
-          />
-        )}
-      />
-
-      {/* Wishes */}
-      <Controller
-        name="wishes"
-        control={control}
-        render={({ field }) => (
-          <TextField
-            {...field}
-            id="rsvp-wishes"
-            label="Lời chúc dành cho cô dâu & chú rể"
-            fullWidth
-            multiline
-            rows={4}
-            error={!!errors.wishes}
-            helperText={errors.wishes?.message ?? 'Tối đa 500 ký tự'}
-            placeholder="Chúc hai bạn trăm năm hạnh phúc..."
-          />
-        )}
-      />
-
-      {/* Submit */}
-      <Button
-        id="rsvp-submit"
-        type="submit"
-        variant="contained"
-        color="primary"
-        size="large"
-        disabled={isSubmitting}
-        startIcon={
-          isSubmitting ? (
-            <CircularProgress size={20} color="inherit" />
-          ) : (
-            <FavoriteIcon />
-          )
-        }
-        sx={{ alignSelf: 'center', px: 6, py: 1.5, mt: 1 }}
-      >
-        {isSubmitting ? 'Đang gửi...' : 'Xác nhận tham dự'}
-      </Button>
-
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={5000}
-        onClose={() => setSnackbarOpen(false)}
-        slots={{ transition: Slide }}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
-        <Alert severity="error" onClose={() => setSnackbarOpen(false)}>
-          {snackbarError}
-        </Alert>
-      </Snackbar>
+      {/* Guest Wishes List (Matching Image 2 Demo) */}
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+        {wishes.map((item, index) => (
+          <Box
+            key={index}
+            sx={{
+              p: 2,
+              borderRadius: '8px',
+              border: '1px solid rgba(84, 46, 8, 0.25)',
+              background: 'rgba(255, 253, 248, 0.6)',
+            }}
+          >
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 0.5 }}>
+              <Typography sx={{ fontWeight: 700, fontSize: '0.85rem', color: '#542e08' }}>
+                {item.name}
+              </Typography>
+              <Typography sx={{ fontSize: '0.7rem', color: 'rgba(84, 46, 8, 0.6)' }}>
+                {item.time}
+              </Typography>
+            </Box>
+            <Typography sx={{ fontSize: '0.8rem', color: '#542e08', lineHeight: 1.4 }}>
+              {item.wish}
+            </Typography>
+          </Box>
+        ))}
+      </Box>
     </Box>
   );
 }
