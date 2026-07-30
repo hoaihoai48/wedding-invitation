@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { alpha } from '@mui/material/styles';
 
 interface CoverProps {
   onOpen: () => void;
@@ -67,17 +68,17 @@ function FallingConfetti() {
 export default function Cover({ onOpen }: CoverProps) {
   return (
     <Box
-      sx={{
+      sx={(theme) => ({
         position: 'fixed',
         inset: 0,
         zIndex: 100,
         overflow: 'hidden',
-        background: 'linear-gradient(165deg, #4a3428 0%, #352518 45%, #241a12 100%)',
+        background: `linear-gradient(165deg, ${theme.palette.vintage.woodLight} 0%, ${theme.palette.vintage.darkBrown} 45%, ${theme.palette.vintage.woodDark} 100%)`,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         p: { xs: 2, sm: 3 },
-      }}
+      })}
     >
       <FallingConfetti />
 
@@ -87,7 +88,7 @@ export default function Cover({ onOpen }: CoverProps) {
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         style={{ position: 'relative', zIndex: 10, width: '100%', display: 'flex', justifyContent: 'center' }}
       >
-        {/* Large prominent card dimensions: w-full max-w-[680px] */}
+        {/* Large prominent card dimensions */}
         <Box
           sx={{
             position: 'relative',
@@ -114,19 +115,19 @@ export default function Cover({ onOpen }: CoverProps) {
             }}
           >
             <Box
-              sx={{
+              sx={(theme) => ({
                 width: 52,
                 height: 52,
                 borderRadius: '50%',
-                background: '#c32a29',
+                background: theme.palette.primary.light,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#f8f3e0',
+                color: theme.palette.primary.contrastText,
                 fontSize: '1.6rem',
                 fontWeight: 700,
-                boxShadow: '0 6px 20px rgba(195,42,41,0.55)',
-              }}
+                boxShadow: `0 6px 20px ${alpha(theme.palette.primary.light, 0.55)}`,
+              })}
             >
               囍
             </Box>
@@ -134,23 +135,22 @@ export default function Cover({ onOpen }: CoverProps) {
 
           {/* Card Frame */}
           <Box
-            sx={{
+            sx={(theme) => ({
               position: 'relative',
               borderRadius: '12px',
-              boxShadow:
-                '0 30px 70px -15px rgba(0, 0, 0, 0.55), 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 50px rgba(195, 42, 41, 0.2)',
+              boxShadow: `0 30px 70px -15px ${alpha(theme.palette.common.black, 0.55)}, 0 10px 30px ${alpha(theme.palette.common.black, 0.35)}, 0 0 50px ${alpha(theme.palette.primary.light, 0.2)}`,
               overflow: 'hidden',
-            }}
+            })}
           >
             {/* Background paper texture + Background Image */}
             <Box
-              sx={{
+              sx={(theme) => ({
                 position: 'absolute',
                 inset: 0,
-                background: 'linear-gradient(to bottom right, #f8f3e0, #efe6d0, #f8f3e0)',
-                border: '1.5px solid rgba(195, 42, 41, 0.2)',
+                background: `linear-gradient(to bottom right, ${theme.palette.vintage.cream}, ${theme.palette.background.paper}, ${theme.palette.vintage.cream})`,
+                border: `1.5px solid ${alpha(theme.palette.primary.light, 0.2)}`,
                 borderRadius: '12px',
-              }}
+              })}
             >
               <Box
                 component="img"
@@ -184,23 +184,23 @@ export default function Cover({ onOpen }: CoverProps) {
               <Box sx={{ mb: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Typography
                   component="span"
-                  sx={{
+                  sx={(theme) => ({
                     fontFamily: '"SVN-HC Marvin Visions", "Righteous", sans-serif',
-                    color: '#c32a29',
+                    color: theme.palette.primary.light,
                     fontSize: { xs: '2.2rem', sm: '2.8rem', md: '3.4rem' },
                     lineHeight: 1.2,
                     display: 'block',
                     width: '100%',
                     textAlign: 'center',
                     letterSpacing: '0.02em',
-                  }}
+                  })}
                 >
                   Hoài Vũ
                 </Typography>
                 <Typography
                   component="span"
-                  sx={{
-                    color: '#542e08',
+                  sx={(theme) => ({
+                    color: theme.palette.text.secondary,
                     fontFamily: '"Baskerville", "Times New Roman", serif',
                     fontSize: { xs: '1.25rem', sm: '1.5rem' },
                     lineHeight: 1,
@@ -208,22 +208,22 @@ export default function Cover({ onOpen }: CoverProps) {
                     display: 'block',
                     width: '100%',
                     textAlign: 'center',
-                  }}
+                  })}
                 >
                   &amp;
                 </Typography>
                 <Typography
                   component="span"
-                  sx={{
+                  sx={(theme) => ({
                     fontFamily: '"SVN-HC Marvin Visions", "Righteous", sans-serif',
-                    color: '#c32a29',
+                    color: theme.palette.primary.light,
                     fontSize: { xs: '2.2rem', sm: '2.8rem', md: '3.4rem' },
                     lineHeight: 1.2,
                     display: 'block',
                     width: '100%',
                     textAlign: 'center',
                     letterSpacing: '0.02em',
-                  }}
+                  })}
                 >
                   Thục Trinh
                 </Typography>
@@ -231,32 +231,32 @@ export default function Cover({ onOpen }: CoverProps) {
 
               {/* Decorative divider */}
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2, mb: 2 }}>
-                <Box sx={{ width: 55, height: '1px', background: 'linear-gradient(to right, transparent, rgba(84, 46, 8, 0.45))' }} />
-                <Typography sx={{ color: 'rgba(84, 46, 8, 0.45)', opacity: 0.8, fontSize: '0.95rem' }}>❦</Typography>
-                <Box sx={{ width: 55, height: '1px', background: 'linear-gradient(to left, transparent, rgba(84, 46, 8, 0.45))' }} />
+                <Box sx={(theme) => ({ width: 55, height: '1px', background: `linear-gradient(to right, transparent, ${alpha(theme.palette.text.secondary, 0.45)})` })} />
+                <Typography sx={(theme) => ({ color: alpha(theme.palette.text.secondary, 0.45), fontSize: '0.95rem' })}>❦</Typography>
+                <Box sx={(theme) => ({ width: 55, height: '1px', background: `linear-gradient(to left, transparent, ${alpha(theme.palette.text.secondary, 0.45)})` })} />
               </Box>
 
               {/* Date */}
               <Typography
-                sx={{
-                  color: 'rgba(84, 46, 8, 0.9)',
+                sx={(theme) => ({
+                  color: theme.palette.text.secondary,
                   fontFamily: '"Lora", "Times New Roman", serif',
                   fontSize: { xs: '1.1rem', sm: '1.25rem' },
                   mb: 2.5,
-                }}
+                })}
               >
                 14 tháng 9, 2026
               </Typography>
 
               {/* Thân Mời */}
               <Typography
-                sx={{
-                  color: 'rgba(84, 46, 8, 0.9)',
+                sx={(theme) => ({
+                  color: theme.palette.text.secondary,
                   fontFamily: '"Lora", "Times New Roman", serif',
                   fontSize: { xs: '1.1rem', sm: '1.25rem' },
                   fontWeight: 300,
                   mb: 4,
-                }}
+                })}
               >
                 Thân Mời
               </Typography>
@@ -265,7 +265,7 @@ export default function Cover({ onOpen }: CoverProps) {
               <Box
                 id="open-invitation-btn"
                 onClick={onOpen}
-                sx={{
+                sx={(theme) => ({
                   position: 'relative',
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -273,10 +273,10 @@ export default function Cover({ onOpen }: CoverProps) {
                   mx: 'auto',
                   px: 5,
                   py: 1.4,
-                  backgroundColor: '#c32a29',
-                  color: '#f8f3e0',
+                  backgroundColor: theme.palette.primary.light,
+                  color: theme.palette.primary.contrastText,
                   borderRadius: '9999px',
-                  boxShadow: '0 6px 20px rgba(195, 42, 41, 0.4)',
+                  boxShadow: `0 6px 20px ${alpha(theme.palette.primary.light, 0.4)}`,
                   cursor: 'pointer',
                   overflow: 'hidden',
                   userSelect: 'none',
@@ -285,23 +285,23 @@ export default function Cover({ onOpen }: CoverProps) {
                   fontFamily: '"Lora", "Times New Roman", serif',
                   transition: 'all 0.3s ease',
                   '&:hover': {
-                    backgroundColor: '#a82120',
-                    boxShadow: '0 8px 28px rgba(195, 42, 41, 0.6)',
+                    backgroundColor: theme.palette.primary.dark,
+                    boxShadow: `0 8px 28px ${alpha(theme.palette.primary.light, 0.6)}`,
                     transform: 'scale(1.03)',
                   },
-                }}
+                })}
               >
                 Mở thiệp
                 <Box
-                  sx={{
+                  sx={(theme) => ({
                     position: 'absolute',
                     top: 0,
                     height: '100%',
                     width: 36,
-                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
+                    background: `linear-gradient(90deg, transparent, ${alpha(theme.palette.common.white, 0.4)}, transparent)`,
                     animation: 'shine 3s ease-in-out infinite',
                     pointerEvents: 'none',
-                  }}
+                  })}
                 />
               </Box>
             </Box>

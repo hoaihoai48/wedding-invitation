@@ -1,57 +1,112 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, alpha } from '@mui/material/styles';
+
+declare module '@mui/material/styles' {
+  interface Palette {
+    vintage: {
+      cream: string;
+      paper: string;
+      envelopeBack: string;
+      envelopeFront: string;
+      gold: string;
+      pastelPurple: string;
+      purpleBorder: string;
+      darkBrown: string;
+      woodDark: string;
+      woodLight: string;
+      accentTeal: string;
+      successGreen: string;
+      borderDark: string;
+      overlayDark: string;
+    };
+  }
+  interface PaletteOptions {
+    vintage?: {
+      cream?: string;
+      paper?: string;
+      envelopeBack?: string;
+      envelopeFront?: string;
+      gold?: string;
+      pastelPurple?: string;
+      purpleBorder?: string;
+      darkBrown?: string;
+      woodDark?: string;
+      woodLight?: string;
+      accentTeal?: string;
+      successGreen?: string;
+      borderDark?: string;
+      overlayDark?: string;
+    };
+  }
+}
 
 const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#c32a29',   // Đỏ son Cô Ba Đỏ
+      main: '#b82323',   // Deep Red Tân Thời
       dark: '#8e1c1b',
-      light: '#e56362',
-      contrastText: '#f8f3e0',
+      light: '#c32a29',
+      contrastText: '#fdfbf7',
     },
     secondary: {
-      main: '#542e08',   // Nâu đậm vintage
-      dark: '#351c04',
-      light: '#7a4612',
+      main: '#28201c',   // Dark Brown Retro
+      dark: '#1e3a34',   // Teal Accent
+      light: '#542e08',
     },
     background: {
-      default: '#f8f3e0', // Giấy kem Cô Ba Đỏ
-      paper: '#efe6d0',
+      default: '#fdfbf7', // Vintage Cream Paper
+      paper: '#f5efe0',
     },
     text: {
-      primary: '#542e08',
-      secondary: 'rgba(84, 46, 8, 0.88)',
+      primary: '#28201c',
+      secondary: '#542e08',
+    },
+    vintage: {
+      cream: '#fdfbf7',
+      paper: '#f5efe0',
+      envelopeBack: '#fdfbf7',
+      envelopeFront: '#f7f2e7',
+      gold: '#d4af37',
+      pastelPurple: '#d8c4e8',
+      purpleBorder: 'rgba(216, 196, 232, 0.5)',
+      darkBrown: '#28201c',
+      woodDark: '#241a12',
+      woodLight: '#4a3428',
+      accentTeal: '#1e3a34',
+      successGreen: '#2e7d32',
+      borderDark: 'rgba(38, 30, 27, 0.2)',
+      overlayDark: 'rgba(25, 18, 15, 0.75)',
     },
   },
   typography: {
-    fontFamily: 'var(--font-playfair), "Lora", "Times New Roman", serif',
+    fontFamily: '"Lora", "Baskerville", serif',
     h1: {
-      fontFamily: 'var(--font-oswald), sans-serif',
+      fontFamily: '"SVN-HC Marvin Visions", sans-serif',
       fontWeight: 700,
-      color: '#c32a29',
+      color: '#b82323',
     },
     h2: {
-      fontFamily: 'var(--font-oswald), sans-serif',
+      fontFamily: '"SVN-HC Marvin Visions", sans-serif',
       fontWeight: 700,
-      color: '#c32a29',
+      color: '#b82323',
     },
     h3: {
-      fontFamily: 'var(--font-oswald), sans-serif',
+      fontFamily: '"SVN-HC Marvin Visions", sans-serif',
       fontWeight: 600,
-      color: '#c32a29',
+      color: '#b82323',
     },
     h4: {
-      fontFamily: 'var(--font-playfair), Georgia, serif',
+      fontFamily: '"Lora", Georgia, serif',
       fontWeight: 700,
-      color: '#542e08',
+      color: '#28201c',
     },
     body1: {
-      fontFamily: 'var(--font-lato), sans-serif',
-      color: 'rgba(84, 46, 8, 0.88)',
+      fontFamily: '"Lora", serif',
+      color: '#28201c',
     },
     body2: {
-      fontFamily: 'var(--font-lato), sans-serif',
-      color: 'rgba(84, 46, 8, 0.75)',
+      fontFamily: '"Lora", serif',
+      color: '#542e08',
     },
   },
   shape: { borderRadius: 8 },

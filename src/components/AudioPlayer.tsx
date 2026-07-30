@@ -3,6 +3,8 @@
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import MusicOffIcon from '@mui/icons-material/MusicOff';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import { alpha } from '@mui/material/styles';
 
 interface AudioPlayerProps {
     isPlaying: boolean;
@@ -24,38 +26,43 @@ export default function AudioPlayer( { isPlaying, onToggle }: AudioPlayerProps )
             )}
 
             {/* Floating Rotating Disc Button */}
-            <Box
+            <IconButton
                 onClick={onToggle}
-                sx={{
+                sx={(theme) => ({
                     position: 'fixed',
                     bottom: 24,
                     right: 24,
                     zIndex: 999,
-                    width: 50,
-                    height: 50,
-                    borderRadius: '50%',
-                    backgroundColor: '#542e08',
-                    color: '#f8f3e0',
-                    border: '2px solid #c32a29',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    boxShadow: '0 6px 20px rgba(84,46,8,0.5)',
-                    transition: 'all 0.3s ease',
-                    animation: isPlaying ? 'spin 6s linear infinite' : 'none',
-                    '@keyframes spin': {
-                        '0%': { transform: 'rotate(0deg)' },
-                        '100%': { transform: 'rotate(360deg)' },
-                    },
+                    width: 48,
+                    height: 48,
+                    backgroundColor: theme.palette.text.primary,
+                    color: theme.palette.background.default,
+                    border: `2px solid ${theme.palette.primary.light}`,
+                    boxShadow: `0 4px 15px ${alpha(theme.palette.common.black, 0.4)}`,
+                    transition: 'all 0.2s ease',
                     '&:hover': {
-                        transform: 'scale(1.1)',
-                        backgroundColor: '#c32a29',
+                        backgroundColor: theme.palette.text.primary,
+                        transform: 'scale(1.05)',
                     },
-                }}
+                })}
             >
-                {isPlaying ? <MusicNoteIcon /> : <MusicOffIcon />}
-            </Box>
+                {isPlaying ? (
+                    <MusicNoteIcon
+                        sx={(theme) => ({
+                            fontSize: 24,
+                            color: theme.palette.primary.light,
+                            animation: 'pulse-music 1.5s ease-in-out infinite',
+                            '@keyframes pulse-music': {
+                                '0%': { transform: 'scale(1)' },
+                                '50%': { transform: 'scale(1.2)' },
+                                '100%': { transform: 'scale(1)' },
+                            },
+                        })}
+                    />
+                ) : (
+                    <MusicOffIcon />
+                )}
+            </IconButton>
         </>
     );
 }

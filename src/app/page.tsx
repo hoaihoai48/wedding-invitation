@@ -31,8 +31,9 @@ export default function Home() {
           inset: 0,
           zIndex: 50,
           opacity: isOpened ? 0 : 1,
+          transform: isOpened ? 'scale(1.08)' : 'scale(1)',
           pointerEvents: isOpened ? 'none' : 'auto',
-          transition: 'opacity 0.7s ease-out, visibility 0.7s ease-out',
+          transition: 'opacity 0.95s cubic-bezier(0.4, 0, 0.2, 1), transform 0.95s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.95s ease-out',
           visibility: isOpened ? 'hidden' : 'visible',
         }}
       >

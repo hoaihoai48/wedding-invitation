@@ -10,6 +10,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import CheckIcon from '@mui/icons-material/Check';
+import { alpha } from '@mui/material/styles';
 import Image from 'next/image';
 
 interface GiftModalProps {
@@ -45,17 +46,17 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
     <AnimatePresence>
       {open && (
         <Box
-          sx={{
+          sx={(theme) => ({
             position: 'fixed',
             inset: 0,
             zIndex: 1200,
-            backgroundColor: 'rgba(25, 18, 15, 0.75)',
+            backgroundColor: theme.palette.vintage.overlayDark,
             backdropFilter: 'blur(6px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             p: { xs: 2, sm: 3 },
-          }}
+          })}
           onClick={onClose}
         >
           <motion.div
@@ -66,63 +67,63 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
             onClick={(e) => e.stopPropagation()}
             style={{ width: '100%', maxWidth: '680px' }}
           >
-            {/* Unified Vintage Parchment Background (#fdfbf7) */}
+            {/* Unified Vintage Parchment Background */}
             <Box
-              sx={{
+              sx={(theme) => ({
                 position: 'relative',
                 width: '100%',
                 maxHeight: '90vh',
                 overflowY: 'auto',
-                backgroundColor: '#fdfbf7',
+                backgroundColor: theme.palette.vintage.cream,
                 borderRadius: '16px',
-                border: '1px solid rgba(38, 30, 27, 0.2)',
-                boxShadow: '0 20px 50px rgba(0, 0, 0, 0.4)',
+                border: `1px solid ${theme.palette.vintage.borderDark}`,
+                boxShadow: `0 20px 50px ${alpha(theme.palette.common.black, 0.4)}`,
                 p: { xs: 3, sm: 4.5 },
-              }}
+              })}
             >
               {/* Close Button */}
               <IconButton
                 onClick={onClose}
-                sx={{
+                sx={(theme) => ({
                   position: 'absolute',
                   top: 16,
                   right: 16,
-                  color: '#28201c',
+                  color: theme.palette.text.primary,
                   opacity: 0.7,
                   transition: 'all 0.2s',
-                  '&:hover': { opacity: 1, backgroundColor: 'rgba(38, 30, 27, 0.06)' },
-                }}
+                  '&:hover': { opacity: 1, backgroundColor: alpha(theme.palette.vintage.darkBrown, 0.06) },
+                })}
                 aria-label="Đóng"
               >
                 <CloseIcon sx={{ fontSize: 22 }} />
               </IconButton>
 
-              {/* Title: Classic Retro Serif in Deep Red (#b82323) */}
+              {/* Title: Classic Retro Serif in Deep Red */}
               <Typography
-                sx={{
+                sx={(theme) => ({
                   fontFamily: '"SVN-HC Marvin Visions", "Lora", serif',
                   fontSize: { xs: '1.6rem', sm: '2.1rem' },
-                  color: '#b82323',
+                  color: theme.palette.primary.main,
                   textAlign: 'center',
                   letterSpacing: '0.06em',
                   textTransform: 'uppercase',
                   mb: 0.5,
-                }}
+                })}
               >
                 HỘP QUÀ MỪNG CƯỚI
               </Typography>
 
               {/* Subtle Pastel Purple Accent Divider Line */}
               <Box
-                sx={{
+                sx={(theme) => ({
                   width: '60px',
                   height: '2px',
-                  backgroundColor: '#c4b2d6',
+                  backgroundColor: theme.palette.vintage.pastelPurple,
                   mx: 'auto',
                   mb: 4,
                   borderRadius: '2px',
                   opacity: 0.8,
-                }}
+                })}
               />
 
               {/* Dual Content Grid with Stretch Alignment */}
@@ -144,7 +145,7 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                     height: '100%',
                   }}
                 >
-                  {/* Fixed MinHeight Title Container for Perfect Vertical Baseline Alignment */}
+                  {/* Fixed MinHeight Title Container */}
                   <Box
                     sx={{
                       minHeight: { xs: 'auto', sm: '3.2rem' },
@@ -155,13 +156,13 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                     }}
                   >
                     <Typography
-                      sx={{
+                      sx={(theme) => ({
                         fontFamily: '"Lora", "Baskerville", serif',
                         fontSize: '1.1rem',
                         fontWeight: 600,
-                        color: '#b82323',
+                        color: theme.palette.primary.main,
                         lineHeight: 1.3,
-                      }}
+                      })}
                     >
                       Chú Rể — Nguyễn Hoài Vũ
                     </Typography>
@@ -169,14 +170,14 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
 
                   {/* Elegant Thin Dark Brown Border for QR Code */}
                   <Box
-                    sx={{
+                    sx={(theme) => ({
                       p: 1.5,
-                      backgroundColor: '#ffffff',
+                      backgroundColor: theme.palette.common.white,
                       borderRadius: '10px',
-                      border: '1px solid #261e1b',
+                      border: `1px solid ${theme.palette.vintage.darkBrown}`,
                       mb: 2,
                       display: 'inline-block',
-                    }}
+                    })}
                   >
                     <Image
                       src="/images/qr-code.png"
@@ -187,15 +188,15 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                     />
                   </Box>
 
-                  {/* Banking Details in Dark Brown (#28201c) */}
+                  {/* Banking Details */}
                   <Typography
-                    sx={{
+                    sx={(theme) => ({
                       fontFamily: '"Lora", serif',
                       fontSize: '0.85rem',
-                      color: '#28201c',
+                      color: theme.palette.text.primary,
                       opacity: 0.8,
                       mb: 0.3,
-                    }}
+                    })}
                   >
                     Ngân hàng Vietcombank
                   </Typography>
@@ -210,25 +211,25 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                     }}
                   >
                     <Typography
-                      sx={{
+                      sx={(theme) => ({
                         fontFamily: '"Lora", serif',
                         fontSize: '1.1rem',
                         fontWeight: 700,
-                        color: '#28201c',
+                        color: theme.palette.text.primary,
                         letterSpacing: '0.04em',
-                      }}
+                      })}
                     >
                       1234567890
                     </Typography>
                     <IconButton
                       size="small"
                       onClick={() => handleCopy('1234567890', true)}
-                      sx={{
-                        color: copiedGroom ? '#2e7d32' : '#28201c',
+                      sx={(theme) => ({
+                        color: copiedGroom ? theme.palette.vintage.successGreen : theme.palette.text.primary,
                         p: 0.3,
                         opacity: 0.8,
                         '&:hover': { opacity: 1 },
-                      }}
+                      })}
                     >
                       {copiedGroom ? (
                         <CheckIcon sx={{ fontSize: 16 }} />
@@ -239,27 +240,27 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                   </Box>
 
                   <Typography
-                    sx={{
+                    sx={(theme) => ({
                       fontFamily: '"Lora", serif',
                       fontSize: '0.9rem',
                       fontWeight: 600,
-                      color: '#28201c',
+                      color: theme.palette.text.primary,
                       mb: 2.5,
                       textTransform: 'uppercase',
-                    }}
+                    })}
                   >
                     NGUYỄN HOÀI VŨ
                   </Typography>
 
-                  {/* Push button to bottom if flex container expands */}
+                  {/* Push button to bottom */}
                   <Box sx={{ mt: 'auto' }}>
                     <Button
                       variant="outlined"
                       startIcon={<FileDownloadOutlinedIcon />}
                       onClick={() => handleDownload('/images/qr-code.png', 'QR_Nguyen_Hoai_Vu.png')}
-                      sx={{
-                        borderColor: '#261e1b',
-                        color: '#28201c',
+                      sx={(theme) => ({
+                        borderColor: theme.palette.vintage.darkBrown,
+                        color: theme.palette.text.primary,
                         fontFamily: '"Lora", serif',
                         fontSize: '0.85rem',
                         textTransform: 'none',
@@ -267,11 +268,11 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                         px: 2.5,
                         py: 0.6,
                         '&:hover': {
-                          borderColor: '#b82323',
-                          color: '#b82323',
-                          backgroundColor: 'rgba(184, 35, 35, 0.04)',
+                          borderColor: theme.palette.primary.main,
+                          color: theme.palette.primary.main,
+                          backgroundColor: alpha(theme.palette.primary.main, 0.04),
                         },
-                      }}
+                      })}
                     >
                       Lưu mã QR
                     </Button>
@@ -288,7 +289,7 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                     height: '100%',
                   }}
                 >
-                  {/* Fixed MinHeight Title Container for Perfect Vertical Baseline Alignment */}
+                  {/* Fixed MinHeight Title Container */}
                   <Box
                     sx={{
                       minHeight: { xs: 'auto', sm: '3.2rem' },
@@ -299,13 +300,13 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                     }}
                   >
                     <Typography
-                      sx={{
+                      sx={(theme) => ({
                         fontFamily: '"Lora", "Baskerville", serif',
                         fontSize: '1.1rem',
                         fontWeight: 600,
-                        color: '#b82323',
+                        color: theme.palette.primary.main,
                         lineHeight: 1.3,
-                      }}
+                      })}
                     >
                       Cô Dâu — Nguyễn Minh Thục Trinh
                     </Typography>
@@ -313,14 +314,14 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
 
                   {/* Elegant Thin Dark Brown Border for QR Code */}
                   <Box
-                    sx={{
+                    sx={(theme) => ({
                       p: 1.5,
-                      backgroundColor: '#ffffff',
+                      backgroundColor: theme.palette.common.white,
                       borderRadius: '10px',
-                      border: '1px solid #261e1b',
+                      border: `1px solid ${theme.palette.vintage.darkBrown}`,
                       mb: 2,
                       display: 'inline-block',
-                    }}
+                    })}
                   >
                     <Image
                       src="/images/qr-code.png"
@@ -331,15 +332,15 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                     />
                   </Box>
 
-                  {/* Banking Details in Dark Brown (#28201c) */}
+                  {/* Banking Details */}
                   <Typography
-                    sx={{
+                    sx={(theme) => ({
                       fontFamily: '"Lora", serif',
                       fontSize: '0.85rem',
-                      color: '#28201c',
+                      color: theme.palette.text.primary,
                       opacity: 0.8,
                       mb: 0.3,
-                    }}
+                    })}
                   >
                     Ngân hàng MBBank
                   </Typography>
@@ -354,25 +355,25 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                     }}
                   >
                     <Typography
-                      sx={{
+                      sx={(theme) => ({
                         fontFamily: '"Lora", serif',
                         fontSize: '1.1rem',
                         fontWeight: 700,
-                        color: '#28201c',
+                        color: theme.palette.text.primary,
                         letterSpacing: '0.04em',
-                      }}
+                      })}
                     >
                       9876543210
                     </Typography>
                     <IconButton
                       size="small"
                       onClick={() => handleCopy('9876543210', false)}
-                      sx={{
-                        color: copiedBride ? '#2e7d32' : '#28201c',
+                      sx={(theme) => ({
+                        color: copiedBride ? theme.palette.vintage.successGreen : theme.palette.text.primary,
                         p: 0.3,
                         opacity: 0.8,
                         '&:hover': { opacity: 1 },
-                      }}
+                      })}
                     >
                       {copiedBride ? (
                         <CheckIcon sx={{ fontSize: 16 }} />
@@ -383,27 +384,27 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                   </Box>
 
                   <Typography
-                    sx={{
+                    sx={(theme) => ({
                       fontFamily: '"Lora", serif',
                       fontSize: '0.9rem',
                       fontWeight: 600,
-                      color: '#28201c',
+                      color: theme.palette.text.primary,
                       mb: 2.5,
                       textTransform: 'uppercase',
-                    }}
+                    })}
                   >
                     NGUYỄN MINH THỤC TRINH
                   </Typography>
 
-                  {/* Push button to bottom if flex container expands */}
+                  {/* Push button to bottom */}
                   <Box sx={{ mt: 'auto' }}>
                     <Button
                       variant="outlined"
                       startIcon={<FileDownloadOutlinedIcon />}
                       onClick={() => handleDownload('/images/qr-code.png', 'QR_Nguyen_Minh_Thuc_Trinh.png')}
-                      sx={{
-                        borderColor: '#261e1b',
-                        color: '#28201c',
+                      sx={(theme) => ({
+                        borderColor: theme.palette.vintage.darkBrown,
+                        color: theme.palette.text.primary,
                         fontFamily: '"Lora", serif',
                         fontSize: '0.85rem',
                         textTransform: 'none',
@@ -411,11 +412,11 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                         px: 2.5,
                         py: 0.6,
                         '&:hover': {
-                          borderColor: '#b82323',
-                          color: '#b82323',
-                          backgroundColor: 'rgba(184, 35, 35, 0.04)',
+                          borderColor: theme.palette.primary.main,
+                          color: theme.palette.primary.main,
+                          backgroundColor: alpha(theme.palette.primary.main, 0.04),
                         },
-                      }}
+                      })}
                     >
                       Lưu mã QR
                     </Button>

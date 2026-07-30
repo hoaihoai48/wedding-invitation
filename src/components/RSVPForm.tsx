@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { alpha } from '@mui/material/styles';
 
 interface GuestWish {
   name: string;
@@ -14,7 +15,6 @@ export default function RSVPForm() {
   const [name, setName] = useState('');
   const [wish, setWish] = useState('');
 
-  // Sample guest wishes like in demo image 2
   const [wishes, setWishes] = useState<GuestWish[]>([
     {
       name: 'NGUYỄN HÙNG HẬU',
@@ -46,17 +46,17 @@ export default function RSVPForm() {
 
   return (
     <Box sx={{ width: '100%' }}>
-      {/* Input Form Box (Matching Image 2 Demo) */}
+      {/* Input Form Box */}
       <Box
         component="form"
         onSubmit={handleSubmit}
-        sx={{
+        sx={(theme) => ({
           p: 3,
           borderRadius: '12px',
-          border: '1.5px solid rgba(84, 46, 8, 0.35)',
-          background: 'rgba(255, 253, 248, 0.4)',
+          border: `1.5px solid ${theme.palette.vintage.borderDark}`,
+          background: alpha(theme.palette.vintage.cream, 0.4),
           mb: 3,
-        }}
+        })}
       >
         {/* Name input */}
         <Box sx={{ mb: 2 }}>
@@ -67,20 +67,20 @@ export default function RSVPForm() {
             value={name}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
             required
-            sx={{
+            sx={(theme) => ({
               width: '100%',
               p: 1.5,
               borderRadius: '8px',
-              border: '1px solid rgba(84, 46, 8, 0.3)',
-              background: 'rgba(248, 243, 224, 0.6)',
+              border: `1px solid ${theme.palette.vintage.borderDark}`,
+              background: alpha(theme.palette.vintage.paper, 0.6),
               fontSize: '0.9rem',
-              color: '#542e08',
+              color: theme.palette.text.primary,
               outline: 'none',
               fontFamily: '"Lora", serif',
               '&:focus': {
-                borderColor: '#c32a29',
+                borderColor: theme.palette.primary.light,
               },
-            }}
+            })}
           />
         </Box>
 
@@ -93,35 +93,35 @@ export default function RSVPForm() {
             value={wish}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setWish(e.target.value)}
             required
-            sx={{
+            sx={(theme) => ({
               width: '100%',
               p: 1.5,
               borderRadius: '8px',
-              border: '1px solid rgba(84, 46, 8, 0.3)',
-              background: 'rgba(248, 243, 224, 0.6)',
+              border: `1px solid ${theme.palette.vintage.borderDark}`,
+              background: alpha(theme.palette.vintage.paper, 0.6),
               fontSize: '0.9rem',
-              color: '#542e08',
+              color: theme.palette.text.primary,
               outline: 'none',
               fontFamily: '"Lora", serif',
               resize: 'none',
               '&:focus': {
-                borderColor: '#c32a29',
+                borderColor: theme.palette.primary.light,
               },
-            }}
+            })}
           />
         </Box>
 
-        {/* Submit button right-aligned dark brown (Matching Image 2 Demo) */}
+        {/* Submit button */}
         <Box sx={{ textAlign: 'right' }}>
           <Box
             component="button"
             type="submit"
-            sx={{
+            sx={(theme) => ({
               px: 4,
               py: 1.2,
               borderRadius: '50px',
-              backgroundColor: '#542e08',
-              color: '#f8f3e0',
+              backgroundColor: theme.palette.text.primary,
+              color: theme.palette.background.default,
               border: 'none',
               fontSize: '0.9rem',
               fontWeight: 700,
@@ -129,37 +129,37 @@ export default function RSVPForm() {
               cursor: 'pointer',
               transition: 'all 0.2s ease',
               '&:hover': {
-                backgroundColor: '#381e05',
+                backgroundColor: theme.palette.primary.main,
                 transform: 'translateY(-1px)',
               },
-            }}
+            })}
           >
             GỬI LỜI CHÚC
           </Box>
         </Box>
       </Box>
 
-      {/* Guest Wishes List (Matching Image 2 Demo) */}
+      {/* Guest Wishes List */}
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
         {wishes.map((item, index) => (
           <Box
             key={index}
-            sx={{
+            sx={(theme) => ({
               p: 2,
               borderRadius: '8px',
-              border: '1px solid rgba(84, 46, 8, 0.25)',
-              background: 'rgba(255, 253, 248, 0.6)',
-            }}
+              border: `1px solid ${theme.palette.vintage.borderDark}`,
+              background: alpha(theme.palette.vintage.cream, 0.6),
+            })}
           >
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 0.5 }}>
-              <Typography sx={{ fontWeight: 700, fontSize: '0.85rem', color: '#542e08' }}>
+              <Typography sx={(theme) => ({ fontWeight: 700, fontSize: '0.85rem', color: theme.palette.text.primary })}>
                 {item.name}
               </Typography>
-              <Typography sx={{ fontSize: '0.7rem', color: 'rgba(84, 46, 8, 0.6)' }}>
+              <Typography sx={(theme) => ({ fontSize: '0.7rem', color: theme.palette.text.secondary })}>
                 {item.time}
               </Typography>
             </Box>
-            <Typography sx={{ fontSize: '0.8rem', color: '#542e08', lineHeight: 1.4 }}>
+            <Typography sx={(theme) => ({ fontSize: '0.8rem', color: theme.palette.text.primary, lineHeight: 1.4 })}>
               {item.wish}
             </Typography>
           </Box>

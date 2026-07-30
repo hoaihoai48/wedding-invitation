@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import CloseIcon from '@mui/icons-material/Close';
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import { alpha } from '@mui/material/styles';
 import Image from 'next/image';
 import RSVPForm from './RSVPForm';
 import GiftModal from './GiftModal';
@@ -14,26 +13,26 @@ function DemoSectionTitle({ title, subtitle }: { title: string; subtitle?: strin
   return (
     <Box sx={{ textAlign: 'center', my: 4 }}>
       <Typography
-        sx={{
+        sx={(theme) => ({
           fontFamily: '"SVN-HC Marvin Visions", sans-serif',
           fontSize: { xs: '1.6rem', sm: '2.2rem' },
-          color: '#1e3a34',
+          color: theme.palette.vintage.accentTeal,
           letterSpacing: '0.04em',
           textTransform: 'uppercase',
           mb: 0.5,
-        }}
+        })}
       >
         {title}
       </Typography>
       {subtitle && (
         <Typography
-          sx={{
+          sx={(theme) => ({
             fontFamily: '"Lora", serif',
             fontSize: '1rem',
-            color: '#542e08',
+            color: theme.palette.secondary.light,
             fontStyle: 'italic',
             opacity: 0.85,
-          }}
+          })}
         >
           {subtitle}
         </Typography>
@@ -49,43 +48,46 @@ interface MainContentProps {
 export default function MainContent({ isOpened = true }: MainContentProps) {
   const [isGiftModalOpen, setIsGiftModalOpen] = useState(false);
 
-  const handleDownloadQR = (qrPath: string, filename: string) => {
-    const link = document.createElement('a');
-    link.href = qrPath;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   return (
     <Box
       component="main"
-      sx={{
-        background: 'linear-gradient(165deg, #4a3428 0%, #352518 45%, #241a12 100%)',
+      sx={(theme) => ({
+        background: `linear-gradient(165deg, ${theme.palette.vintage.woodLight} 0%, ${theme.palette.vintage.darkBrown} 45%, ${theme.palette.vintage.woodDark} 100%)`,
         minHeight: '100vh',
         py: 0,
         px: { xs: 0, sm: 2, md: 4 },
         display: 'flex',
         justifyContent: 'center',
-      }}
+      })}
     >
-      {/* Centered Scrollable Card Strip */}
-      <Box
-        sx={{
-          position: 'relative',
-          width: '100%',
-          maxWidth: { xs: '100%', sm: '720px', md: '820px' },
-          minHeight: '100vh',
-          background: '#f5efe0',
-          boxShadow: '0 0 50px rgba(0, 0, 0, 0.7)',
-          borderLeft: { sm: '1px solid rgba(195, 42, 41, 0.2)' },
-          borderRight: { sm: '1px solid rgba(195, 42, 41, 0.2)' },
-          overflow: 'hidden',
-          color: '#542e08',
-          pb: 6,
+      {/* Centered Scrollable Card Strip with smooth reveal */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{
+          opacity: isOpened ? 1 : 0.4,
+          scale: isOpened ? 1 : 0.95,
         }}
+        transition={{
+          duration: 1.1,
+          ease: [0.16, 1, 0.3, 1],
+        }}
+        style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
       >
+        <Box
+          sx={(theme) => ({
+            position: 'relative',
+            width: '100%',
+            maxWidth: { xs: '100%', sm: '720px', md: '820px' },
+            minHeight: '100vh',
+            background: theme.palette.background.paper,
+            boxShadow: `0 0 50px ${alpha(theme.palette.common.black, 0.7)}`,
+            borderLeft: { sm: `1px solid ${alpha(theme.palette.primary.light, 0.2)}` },
+            borderRight: { sm: `1px solid ${alpha(theme.palette.primary.light, 0.2)}` },
+            overflow: 'hidden',
+            color: theme.palette.text.primary,
+            pb: 6,
+          })}
+        >
         {/* Background paper texture repeating */}
         <Box
           sx={{
@@ -104,36 +106,36 @@ export default function MainContent({ isOpened = true }: MainContentProps) {
           {/* ── Header: THIỆP MỜI / Đám Cưới ── */}
           <Box sx={{ textAlign: 'center', pt: 6, pb: 1, px: 3 }}>
             <Typography
-              sx={{
+              sx={(theme) => ({
                 fontFamily: '"SVN-HC Marvin Visions", sans-serif',
                 fontSize: '1.4rem',
-                color: '#c32a29',
+                color: theme.palette.primary.light,
                 letterSpacing: '0.15em',
                 lineHeight: 1,
-              }}
+              })}
             >
               THIỆP MỜI
             </Typography>
             <Typography
-              sx={{
+              sx={(theme) => ({
                 fontFamily: '"SVN-HC Pacifico", cursive',
                 fontSize: '1.2rem',
-                color: '#c32a29',
+                color: theme.palette.primary.light,
                 mb: 2,
-              }}
+              })}
             >
               Đám Cưới
             </Typography>
 
             <Typography
-              sx={{
+              sx={(theme) => ({
                 fontFamily: '"SVN-HC Marvin Visions", sans-serif',
                 fontSize: { xs: '2rem', sm: '2.8rem', md: '3.2rem' },
-                color: '#1e3a34',
+                color: theme.palette.vintage.accentTeal,
                 letterSpacing: '0.04em',
                 lineHeight: 1.2,
                 textTransform: 'uppercase',
-              }}
+              })}
             >
               Hoài Vũ &amp; Thục Trinh
             </Typography>
@@ -157,18 +159,18 @@ export default function MainContent({ isOpened = true }: MainContentProps) {
 
             <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4, mb: 4, textAlign: 'center' }}>
               <Box>
-                <Typography sx={{ fontSize: '0.9rem', color: '#1e3a34', fontWeight: 600 }}>Ông bà</Typography>
+                <Typography sx={(theme) => ({ fontSize: '0.9rem', color: theme.palette.vintage.accentTeal, fontWeight: 600 })}>Ông bà</Typography>
                 <Typography sx={{ fontSize: '1.05rem', fontWeight: 700 }}>Nguyễn Văn Cường</Typography>
                 <Typography sx={{ fontSize: '1.05rem', fontWeight: 700, mb: 0.5 }}>Lê Thị Phương</Typography>
-                <Typography sx={{ fontSize: '0.85rem', color: 'rgba(84,46,8,0.8)' }}>
+                <Typography sx={(theme) => ({ fontSize: '0.85rem', color: theme.palette.text.secondary })}>
                   Phú An Nam 2, Diên Khánh, Khánh Hòa
                 </Typography>
               </Box>
               <Box>
-                <Typography sx={{ fontSize: '0.9rem', color: '#1e3a34', fontWeight: 600 }}>Ông bà</Typography>
+                <Typography sx={(theme) => ({ fontSize: '0.9rem', color: theme.palette.vintage.accentTeal, fontWeight: 600 })}>Ông bà</Typography>
                 <Typography sx={{ fontSize: '1.05rem', fontWeight: 700 }}>Nguyễn Thế Hùng</Typography>
                 <Typography sx={{ fontSize: '1.05rem', fontWeight: 700, mb: 0.5 }}>Vũ Thanh Thủy</Typography>
-                <Typography sx={{ fontSize: '0.85rem', color: 'rgba(84,46,8,0.8)' }}>
+                <Typography sx={(theme) => ({ fontSize: '0.85rem', color: theme.palette.text.secondary })}>
                   50/58 Trần Quý Cáp, Bảo Lộc, Lâm Đồng
                 </Typography>
               </Box>
@@ -176,67 +178,67 @@ export default function MainContent({ isOpened = true }: MainContentProps) {
 
             {/* Announcement */}
             <Box sx={{ textAlign: 'center', my: 4 }}>
-              <Typography sx={{ fontSize: '0.9rem', color: '#1e3a34', letterSpacing: '0.12em', fontWeight: 700 }}>
+              <Typography sx={(theme) => ({ fontSize: '0.9rem', color: theme.palette.vintage.accentTeal, letterSpacing: '0.12em', fontWeight: 700 })}>
                 TRÂN TRỌNG BÁO TIN
               </Typography>
-              <Typography sx={{ fontSize: '0.9rem', color: '#1e3a34', letterSpacing: '0.12em', fontWeight: 700, mb: 3 }}>
+              <Typography sx={(theme) => ({ fontSize: '0.9rem', color: theme.palette.vintage.accentTeal, letterSpacing: '0.12em', fontWeight: 700, mb: 3 })}>
                 LỄ THÀNH HÔN CỦA CON CHÚNG TÔI
               </Typography>
 
               {/* Groom & Bride names in Brush Script Red */}
               <Typography
-                sx={{
+                sx={(theme) => ({
                   fontFamily: '"SVN-HC Pacifico", "SVN-HC Carosello", cursive',
                   fontSize: { xs: '2.6rem', sm: '3.4rem', md: '3.8rem' },
-                  color: '#c32a29',
+                  color: theme.palette.primary.light,
                   lineHeight: 1.1,
-                }}
+                })}
               >
                 Nguyễn Hoài Vũ
               </Typography>
-              <Typography sx={{ fontSize: '0.9rem', color: 'rgba(84,46,8,0.7)', my: 0.5 }}>
+              <Typography sx={(theme) => ({ fontSize: '0.9rem', color: theme.palette.text.secondary, my: 0.5 })}>
                 (Trưởng nam)
               </Typography>
 
-              <Typography sx={{ fontSize: '1.8rem', color: '#c32a29', my: 0.5, fontFamily: '"SVN-HC Pacifico", cursive' }}>
+              <Typography sx={(theme) => ({ fontSize: '1.8rem', color: theme.palette.primary.light, my: 0.5, fontFamily: '"SVN-HC Pacifico", cursive' })}>
                 &amp;
               </Typography>
 
               <Typography
-                sx={{
+                sx={(theme) => ({
                   fontFamily: '"SVN-HC Pacifico", "SVN-HC Carosello", cursive',
                   fontSize: { xs: '2.6rem', sm: '3.4rem', md: '3.8rem' },
-                  color: '#c32a29',
+                  color: theme.palette.primary.light,
                   lineHeight: 1.1,
-                }}
+                })}
               >
                 Nguyễn Minh Thục Trinh
               </Typography>
-              <Typography sx={{ fontSize: '0.9rem', color: 'rgba(84,46,8,0.7)', mt: 0.5, mb: 4 }}>
+              <Typography sx={(theme) => ({ fontSize: '0.9rem', color: theme.palette.text.secondary, mt: 0.5, mb: 4 })}>
                 (Trưởng nữ)
               </Typography>
 
               {/* Ceremony time */}
-              <Typography sx={{ fontSize: '0.9rem', color: '#1e3a34', letterSpacing: '0.08em', fontWeight: 600 }}>
+              <Typography sx={(theme) => ({ fontSize: '0.9rem', color: theme.palette.vintage.accentTeal, letterSpacing: '0.08em', fontWeight: 600 })}>
                 LỄ THÀNH HÔN ĐƯỢC CỬ HÀNH TẠI TƯ GIA
               </Typography>
-              <Typography sx={{ fontSize: '0.9rem', color: '#1e3a34', letterSpacing: '0.08em', fontWeight: 600, mb: 1.5 }}>
+              <Typography sx={(theme) => ({ fontSize: '0.9rem', color: theme.palette.vintage.accentTeal, letterSpacing: '0.08em', fontWeight: 600, mb: 1.5 })}>
                 VÀO LÚC
               </Typography>
 
-              <Typography sx={{ fontSize: '1.3rem', fontWeight: 700, color: '#542e08', mb: 0.5 }}>
+              <Typography sx={(theme) => ({ fontSize: '1.3rem', fontWeight: 700, color: theme.palette.text.primary, mb: 0.5 })}>
                 09:00
               </Typography>
 
               {/* Date bar format: THỨ HAI | 14 | THÁNG 09 | 2026 */}
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2.5, my: 1.5 }}>
                 <Typography sx={{ fontSize: '1rem', fontWeight: 600 }}>THỨ HAI</Typography>
-                <Typography sx={{ fontSize: '1.8rem', fontWeight: 800, color: '#c32a29' }}>14</Typography>
+                <Typography sx={(theme) => ({ fontSize: '1.8rem', fontWeight: 800, color: theme.palette.primary.light })}>14</Typography>
                 <Typography sx={{ fontSize: '1rem', fontWeight: 600 }}>THÁNG 09</Typography>
               </Box>
               <Typography sx={{ fontSize: '1.1rem', fontWeight: 700, mb: 0.5 }}>2026</Typography>
 
-              <Typography sx={{ fontSize: '0.85rem', fontStyle: 'italic', color: 'rgba(84,46,8,0.75)' }}>
+              <Typography sx={(theme) => ({ fontSize: '0.85rem', fontStyle: 'italic', color: theme.palette.text.secondary })}>
                 (Nhằm ngày 04 tháng 08 năm Bính Ngọ)
               </Typography>
             </Box>
@@ -249,16 +251,16 @@ export default function MainContent({ isOpened = true }: MainContentProps) {
               {[1, 2, 3, 4].map((idx) => (
                 <Box
                   key={idx}
-                  sx={{
+                  sx={(theme) => ({
                     position: 'relative',
                     width: '100%',
                     height: { xs: 180, sm: 240, md: 280 },
                     borderRadius: '12px',
                     overflow: 'hidden',
-                    border: '1px solid rgba(84,46,8,0.15)',
+                    border: `1px solid ${alpha(theme.palette.text.secondary, 0.15)}`,
                     transition: 'transform 0.3s ease',
                     '&:hover': { transform: 'scale(1.03)' },
-                  }}
+                  })}
                 >
                   <Image
                     src="/images/couple-landscape.png"
@@ -277,31 +279,31 @@ export default function MainContent({ isOpened = true }: MainContentProps) {
             <DemoSectionTitle title="THÔNG TIN TIỆC CƯỚI" />
 
             <Box sx={{ textAlign: 'center', mb: 3 }}>
-              <Typography sx={{ fontSize: '0.95rem', color: '#1e3a34', fontWeight: 700, mb: 1 }}>
+              <Typography sx={(theme) => ({ fontSize: '0.95rem', color: theme.palette.vintage.accentTeal, fontWeight: 700, mb: 1 })}>
                 TIỆC CƯỚI SẼ DIỄN RA VÀO LÚC
               </Typography>
-              <Typography sx={{ fontSize: '1.4rem', fontWeight: 700, color: '#542e08', mb: 0.5 }}>
+              <Typography sx={(theme) => ({ fontSize: '1.4rem', fontWeight: 700, color: theme.palette.text.primary, mb: 0.5 })}>
                 18:00
               </Typography>
 
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2.5, my: 1.5 }}>
                 <Typography sx={{ fontSize: '1rem', fontWeight: 600 }}>THỨ HAI</Typography>
-                <Typography sx={{ fontSize: '1.8rem', fontWeight: 800, color: '#c32a29' }}>14</Typography>
+                <Typography sx={(theme) => ({ fontSize: '1.8rem', fontWeight: 800, color: theme.palette.primary.light })}>14</Typography>
                 <Typography sx={{ fontSize: '1rem', fontWeight: 600 }}>THÁNG 09</Typography>
               </Box>
               <Typography sx={{ fontSize: '1.1rem', fontWeight: 700, mb: 0.5 }}>2026</Typography>
 
-              <Typography sx={{ fontSize: '0.85rem', fontStyle: 'italic', color: 'rgba(84,46,8,0.75)', mb: 2.5 }}>
+              <Typography sx={(theme) => ({ fontSize: '0.85rem', fontStyle: 'italic', color: theme.palette.text.secondary, mb: 2.5 })}>
                 (Nhằm ngày 04 tháng 08 năm Bính Ngọ)
               </Typography>
 
               <Box sx={{ display: 'flex', justifyContent: 'center', gap: 6, my: 2 }}>
                 <Box>
-                  <Typography sx={{ fontSize: '0.85rem', color: 'rgba(84,46,8,0.7)' }}>Đón khách</Typography>
+                  <Typography sx={(theme) => ({ fontSize: '0.85rem', color: theme.palette.text.secondary })}>Đón khách</Typography>
                   <Typography sx={{ fontSize: '1.15rem', fontWeight: 700 }}>17:30</Typography>
                 </Box>
                 <Box>
-                  <Typography sx={{ fontSize: '0.85rem', color: 'rgba(84,46,8,0.7)' }}>Khai tiệc</Typography>
+                  <Typography sx={(theme) => ({ fontSize: '0.85rem', color: theme.palette.text.secondary })}>Khai tiệc</Typography>
                   <Typography sx={{ fontSize: '1.15rem', fontWeight: 700 }}>18:00</Typography>
                 </Box>
               </Box>
@@ -315,14 +317,14 @@ export default function MainContent({ isOpened = true }: MainContentProps) {
 
             {/* Map iframe */}
             <Box
-              sx={{
+              sx={(theme) => ({
                 width: '100%',
                 height: { xs: 280, sm: 360, md: 400 },
                 borderRadius: '12px',
                 overflow: 'hidden',
-                border: '1px solid rgba(84,46,8,0.2)',
+                border: `1px solid ${alpha(theme.palette.text.secondary, 0.2)}`,
                 mb: 4,
-              }}
+              })}
             >
               <iframe
                 title="Google Map Tiệc cưới"
@@ -348,10 +350,10 @@ export default function MainContent({ isOpened = true }: MainContentProps) {
                 { time: '20:30', text: 'Chụp ảnh kỷ niệm & Tiễn khách' },
               ].map((item, index) => (
                 <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 2.5 }}>
-                  <Typography sx={{ fontFamily: '"SVN-HC Marvin Visions"', color: '#c32a29', fontSize: '1.1rem', width: 55 }}>
+                  <Typography sx={(theme) => ({ fontFamily: '"SVN-HC Marvin Visions"', color: theme.palette.primary.light, fontSize: '1.1rem', width: 55 })}>
                     {item.time}
                   </Typography>
-                  <Typography sx={{ color: '#c32a29', fontSize: '0.9rem' }}>♦</Typography>
+                  <Typography sx={(theme) => ({ color: theme.palette.primary.light, fontSize: '0.9rem' })}>♦</Typography>
                   <Typography sx={{ fontSize: '1rem', fontWeight: 600 }}>{item.text}</Typography>
                 </Box>
               ))}
@@ -399,27 +401,28 @@ export default function MainContent({ isOpened = true }: MainContentProps) {
             </motion.div>
 
             <Typography
-              sx={{
+              sx={(theme) => ({
                 fontSize: '0.95rem',
-                color: 'rgba(84,46,8,0.8)',
+                color: theme.palette.text.secondary,
                 fontFamily: '"Lora", serif',
                 cursor: 'pointer',
                 mb: 2,
-              }}
+              })}
               onClick={() => setIsGiftModalOpen(true)}
             >
               Nhấn để mở
             </Typography>
 
-            <Typography sx={{ fontSize: '0.85rem', fontStyle: 'italic', color: 'rgba(84,46,8,0.7)', mt: 1 }}>
+            <Typography sx={(theme) => ({ fontSize: '0.85rem', fontStyle: 'italic', color: theme.palette.text.secondary, mt: 1 })}>
               Trân trọng cảm ơn tình cảm và sự hiện diện của Quý khách!
             </Typography>
           </Box>
         </Box>
       </Box>
 
-      {/* ── Retro Saigon Gift Modal ── */}
-      <GiftModal open={isGiftModalOpen} onClose={() => setIsGiftModalOpen(false)} />
+        {/* ── Retro Saigon Gift Modal ── */}
+        <GiftModal open={isGiftModalOpen} onClose={() => setIsGiftModalOpen(false)} />
+      </motion.div>
     </Box>
   );
 }
