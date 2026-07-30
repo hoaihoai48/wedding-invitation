@@ -47,8 +47,10 @@
   --color-brown-text: #542e08;
 }
 
-html {
-  scroll-behavior: smooth;
+html,
+body {
+  height: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -58,7 +60,6 @@ body {
   font-family: 'Lora', 'Baskerville', 'Times New Roman', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
 }
 
 /* Fall particle animation */

@@ -33,34 +33,38 @@ export default function AudioPlayer( { isPlaying, onToggle }: AudioPlayerProps )
                     bottom: 24,
                     right: 24,
                     zIndex: 999,
-                    width: 48,
-                    height: 48,
-                    backgroundColor: theme.palette.text.primary,
-                    color: theme.palette.background.default,
-                    border: `2px solid ${theme.palette.primary.light}`,
-                    boxShadow: `0 4px 15px ${alpha(theme.palette.common.black, 0.4)}`,
-                    transition: 'all 0.2s ease',
+                    width: 52,
+                    height: 52,
+                    backgroundColor: theme.palette.vintage.darkBrown,
+                    color: theme.palette.vintage.cream,
+                    border: `2px solid ${theme.palette.vintage.gold}`,
+                    boxShadow: `0 4px 18px ${alpha(theme.palette.common.black, 0.5)}, 0 0 12px ${alpha(theme.palette.vintage.gold, isPlaying ? 0.6 : 0)}`,
+                    transition: 'all 0.3s ease',
+                    animation: isPlaying ? 'spin-disc 4s linear infinite' : 'none',
+                    '@keyframes spin-disc': {
+                        '0%': { transform: 'rotate(0deg)' },
+                        '100%': { transform: 'rotate(360deg)' },
+                    },
                     '&:hover': {
-                        backgroundColor: theme.palette.text.primary,
-                        transform: 'scale(1.05)',
+                        backgroundColor: theme.palette.vintage.woodDark,
                     },
                 })}
             >
                 {isPlaying ? (
                     <MusicNoteIcon
                         sx={(theme) => ({
-                            fontSize: 24,
-                            color: theme.palette.primary.light,
-                            animation: 'pulse-music 1.5s ease-in-out infinite',
-                            '@keyframes pulse-music': {
-                                '0%': { transform: 'scale(1)' },
-                                '50%': { transform: 'scale(1.2)' },
-                                '100%': { transform: 'scale(1)' },
-                            },
+                            fontSize: 26,
+                            color: theme.palette.vintage.gold,
                         })}
                     />
                 ) : (
-                    <MusicOffIcon />
+                    <MusicOffIcon
+                        sx={(theme) => ({
+                            fontSize: 24,
+                            color: theme.palette.primary.light,
+                            opacity: 0.6,
+                        })}
+                    />
                 )}
             </IconButton>
         </>

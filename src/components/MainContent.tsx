@@ -350,7 +350,7 @@ export default function MainContent({ isOpened = true }: MainContentProps) {
                 { time: '20:30', text: 'Chụp ảnh kỷ niệm & Tiễn khách' },
               ].map((item, index) => (
                 <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 2.5 }}>
-                  <Typography sx={(theme) => ({ fontFamily: '"SVN-HC Marvin Visions"', color: theme.palette.primary.light, fontSize: '1.1rem', width: 55 })}>
+                  <Typography sx={(theme) => ({ fontFamily: '"SVN-HC Marvin Visions", sans-serif', color: theme.palette.primary.light, fontSize: '1.1rem', width: 55 })}>
                     {item.time}
                   </Typography>
                   <Typography sx={(theme) => ({ color: theme.palette.primary.light, fontSize: '0.9rem' })}>♦</Typography>

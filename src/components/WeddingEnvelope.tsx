@@ -85,8 +85,8 @@ export default function WeddingEnvelope({ onOpened }: WeddingEnvelopeProps) {
         <Box
           sx={{
             position: 'relative',
-            width: { xs: '320px', sm: '420px', md: '520px' },
-            height: { xs: '220px', sm: '280px', md: '340px' },
+            width: { xs: '350px', sm: '500px', md: '640px', lg: '700px' },
+            height: { xs: '240px', sm: '330px', md: '420px', lg: '460px' },
             transformStyle: 'preserve-3d',
           }}
         >

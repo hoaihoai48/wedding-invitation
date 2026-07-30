@@ -10,6 +10,15 @@ export default function Home() {
   const [isOpened, setIsOpened] = useState(false);
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
 
+  // Sync body overflow to ensure no scrollbar is rendered before opening the envelope
+  React.useEffect(() => {
+    if (!isOpened) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isOpened]);
+
   const handleOpenEnvelope = () => {
     setIsOpened(true);
     setIsPlayingMusic(true);
@@ -20,7 +29,16 @@ export default function Home() {
   };
 
   return (
-    <Box sx={{ position: 'relative', width: '100%', minHeight: '100vh', overflow: 'hidden' }}>
+    <Box
+      sx={{
+        position: 'relative',
+        width: '100%',
+        height: isOpened ? 'auto' : '100vh',
+        maxHeight: isOpened ? 'none' : '100vh',
+        overflow: isOpened ? 'visible' : 'hidden',
+        overflowX: 'hidden',
+      }}
+    >
       {/* 1. Main Content scrollable wedding invitation underneath */}
       <MainContent isOpened={isOpened} />
 

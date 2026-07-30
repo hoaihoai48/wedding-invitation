@@ -16,7 +16,7 @@ export default function InnerCard({ isOpen }: InnerCardProps) {
     <motion.div
       initial={{ y: '20px', opacity: 0, scale: 0.96 }}
       animate={{
-        y: isOpen ? '-135px' : '20px',
+        y: isOpen ? '-180px' : '20px',
         opacity: isOpen ? 1 : 0,
         scale: isOpen ? 1 : 0.96,
       }}
@@ -137,7 +137,7 @@ export default function InnerCard({ isOpen }: InnerCardProps) {
             LỄ THÀNH HÔN
           </Typography>
 
-          {/* Main text: "Vũ & Nhím" */}
+          {/* Main text: "Vũ & Trinh" */}
           <Typography
             sx={(theme) => ({
               fontFamily: '"SVN-HC Pacifico", "SVN-HC Carosello", "Playfair Display", serif',
@@ -147,7 +147,7 @@ export default function InnerCard({ isOpen }: InnerCardProps) {
               my: 0.25,
             })}
           >
-            Vũ &amp; Nhím
+            Vũ &amp; Trinh
           </Typography>
 
           {/* Sub text: "Thiệp mời sẽ tự động chuyển trang..." */}

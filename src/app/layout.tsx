@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: 'Thiệp Cưới – Hoài Vũ & Thục Trinh',
   description:
     'Trân trọng kính mời bạn đến dự lễ thành hôn của Nguyễn Hoài Vũ & Nguyễn Minh Thục Trinh tại Diên Khánh, Khánh Hòa.',
+  icons: {
+    icon: '/favicon.ico',
+  },
   openGraph: {
     title: 'Thiệp Cưới – Hoài Vũ & Thục Trinh',
     description: 'Trân trọng kính mời bạn đến dự lễ thành hôn của chúng mình.',
@@ -19,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi">
+    <html lang="vi" suppressHydrationWarning>
       <head>
         {/* Google Fonts: Lora, Righteous & Monoton/Bungee (Retro Sài Gòn Fonts) */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -29,7 +32,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <ThemeRegistry>{children}</ThemeRegistry>
       </body>
     </html>
