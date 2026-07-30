@@ -149,39 +149,61 @@ export default function WeddingEnvelope({ onOpened }: WeddingEnvelopeProps) {
             <AnimatePresence>
               {!isOpen && (
                 <motion.div
-                  initial={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.3 }}
                   style={{ zIndex: 10 }}
                 >
-                  <Button
-                    onClick={handleOpen}
-                    variant="outlined"
-                    sx={(theme) => ({
-                      borderColor: theme.palette.primary.main,
-                      color: theme.palette.primary.main,
-                      backgroundColor: alpha(theme.palette.vintage.cream, 0.9),
-                      fontFamily: '"Lora", "Baskerville", serif',
-                      fontSize: { xs: '0.85rem', sm: '1rem' },
-                      fontWeight: 600,
-                      px: { xs: 2.5, sm: 3.5 },
-                      py: { xs: 0.8, sm: 1 },
-                      borderRadius: '30px',
-                      boxShadow: `0 4px 15px ${alpha(theme.palette.primary.main, 0.2)}`,
-                      backdropFilter: 'blur(4px)',
-                      textTransform: 'none',
-                      transition: 'all 0.25s ease',
-                      '&:hover': {
-                        backgroundColor: theme.palette.primary.main,
-                        color: theme.palette.primary.contrastText,
-                        borderColor: theme.palette.primary.main,
-                        boxShadow: `0 6px 20px ${alpha(theme.palette.primary.main, 0.4)}`,
-                        transform: 'translateY(-2px)',
-                      },
-                    })}
+                  {/* Breathing pulse wrapper */}
+                  <motion.div
+                    animate={{
+                      scale: [1, 1.05, 1],
+                      boxShadow: [
+                        '0 4px 15px rgba(180, 30, 30, 0.25)',
+                        '0 6px 28px rgba(180, 30, 30, 0.55)',
+                        '0 4px 15px rgba(180, 30, 30, 0.25)',
+                      ],
+                    }}
+                    transition={{
+                      duration: 2.2,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                    }}
+                    style={{ borderRadius: '30px', display: 'inline-block' }}
+                    whileHover={{
+                      scale: 1.08,
+                      boxShadow: '0 8px 32px rgba(180, 30, 30, 0.6)',
+                      transition: { type: 'spring', stiffness: 300, damping: 15 },
+                    }}
+                    whileTap={{ scale: 0.96 }}
                   >
-                    Mở nắp thiệp
-                  </Button>
+                    <Button
+                      onClick={handleOpen}
+                      variant="outlined"
+                      sx={(theme) => ({
+                        borderColor: theme.palette.primary.main,
+                        color: theme.palette.primary.main,
+                        backgroundColor: alpha(theme.palette.vintage.cream, 0.9),
+                        fontFamily: '"Lora", "Baskerville", serif',
+                        fontSize: { xs: '0.85rem', sm: '1rem' },
+                        fontWeight: 600,
+                        px: { xs: 2.5, sm: 3.5 },
+                        py: { xs: 0.8, sm: 1 },
+                        borderRadius: '30px',
+                        backdropFilter: 'blur(4px)',
+                        textTransform: 'none',
+                        transition: 'background-color 0.25s ease, color 0.25s ease',
+                        '&:hover': {
+                          backgroundColor: theme.palette.primary.main,
+                          color: theme.palette.primary.contrastText,
+                          borderColor: theme.palette.primary.main,
+                        },
+                      })}
+                    >
+                      Mở nắp thiệp
+                    </Button>
+                  </motion.div>
                 </motion.div>
               )}
             </AnimatePresence>

@@ -46,12 +46,17 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
     <AnimatePresence>
       {open && (
         <Box
+          component={motion.div}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.35 }}
           sx={(theme) => ({
             position: 'fixed',
             inset: 0,
             zIndex: 1200,
             backgroundColor: theme.palette.vintage.overlayDark,
-            backdropFilter: 'blur(6px)',
+            backdropFilter: 'blur(8px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -60,12 +65,16 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
           onClick={onClose}
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.96, y: 15 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: 15 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, scale: 0.7, rotateX: -20, y: 50 }}
+            animate={{ opacity: 1, scale: 1, rotateX: 0, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, rotateX: 15, y: 30 }}
+            transition={{
+              type: 'spring',
+              stiffness: 300,
+              damping: 25,
+            }}
             onClick={(e) => e.stopPropagation()}
-            style={{ width: '100%', maxWidth: '680px' }}
+            style={{ width: '100%', maxWidth: '680px', perspective: '1000px' }}
           >
             {/* Unified Vintage Parchment Background */}
             <Box

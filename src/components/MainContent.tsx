@@ -371,11 +371,17 @@ export default function MainContent({ isOpened = true }: MainContentProps) {
             <DemoSectionTitle title="HỘP QUÀ MỪNG" />
 
             <motion.div
-              whileHover={{ scale: 1.08 }}
+              whileHover={{ scale: 1.06, rotate: 1 }}
               whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.25 }}
-              style={{ cursor: 'pointer', display: 'inline-block' }}
+              animate={{
+                y: [0, -6, 0],
+              }}
+              transition={{
+                y: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
+                scale: { duration: 0.2 },
+              }}
               onClick={() => setIsGiftModalOpen(true)}
+              style={{ cursor: 'pointer', display: 'inline-block' }}
             >
               <Box
                 sx={{
@@ -403,14 +409,20 @@ export default function MainContent({ isOpened = true }: MainContentProps) {
             <Typography
               sx={(theme) => ({
                 fontSize: '0.95rem',
-                color: theme.palette.text.secondary,
+                color: theme.palette.primary.main,
                 fontFamily: '"Lora", serif',
+                fontWeight: 600,
                 cursor: 'pointer',
                 mb: 2,
+                transition: 'all 0.2s ease',
+                '&:hover': {
+                  color: theme.palette.primary.dark,
+                  transform: 'scale(1.05)',
+                },
               })}
               onClick={() => setIsGiftModalOpen(true)}
             >
-              Nhấn để mở
+              ✉️ Nhấn vào đây để mở hộp mừng cưới
             </Typography>
 
             <Typography sx={(theme) => ({ fontSize: '0.85rem', fontStyle: 'italic', color: theme.palette.text.secondary, mt: 1 })}>
