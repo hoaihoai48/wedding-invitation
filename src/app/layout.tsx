@@ -3,6 +3,7 @@ import ThemeRegistry from '@/theme/ThemeRegistry';
 import './globals.css';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://vutrinh-wedding.vercel.app'),
   title: 'Thiệp Cưới – Hoài Vũ & Thục Trinh',
   description:
     'Trân trọng kính mời bạn đến dự lễ thành hôn của Nguyễn Hoài Vũ & Nguyễn Minh Thục Trinh tại Diên Khánh, Khánh Hòa.',
@@ -12,6 +13,16 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Thiệp Cưới – Hoài Vũ & Thục Trinh',
     description: 'Trân trọng kính mời bạn đến dự lễ thành hôn của chúng mình.',
+    url: 'https://vutrinh-wedding.vercel.app',
+    siteName: 'Thiệp Cưới Hoài Vũ & Thục Trinh',
+    images: [
+      {
+        url: '/images/couple-landscape.png',
+        width: 1200,
+        height: 630,
+        alt: 'Hoài Vũ & Thục Trinh Wedding',
+      },
+    ],
     type: 'website',
   },
 };
