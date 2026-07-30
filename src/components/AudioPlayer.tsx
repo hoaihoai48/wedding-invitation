@@ -1,5 +1,6 @@
 'use client';
 
+import React, { useRef, useEffect } from 'react';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import MusicOffIcon from '@mui/icons-material/MusicOff';
 import Box from '@mui/material/Box';
@@ -11,19 +12,29 @@ interface AudioPlayerProps {
     onToggle: () => void;
 }
 
-export default function AudioPlayer( { isPlaying, onToggle }: AudioPlayerProps ) {
+export default function AudioPlayer({ isPlaying, onToggle }: AudioPlayerProps) {
+    const audioRef = React.useRef<HTMLAudioElement | null>(null);
+
+    React.useEffect(() => {
+        if (!audioRef.current) return;
+        if (isPlaying) {
+            audioRef.current.play().catch(() => {
+                // Handle autoplay block browser restrictions
+            });
+        } else {
+            audioRef.current.pause();
+        }
+    }, [isPlaying]);
+
     return (
         <>
-            {/* Youtube Embed Background Player for https://www.youtube.com/watch?v=JgTZvDbaTtg */}
-            {isPlaying && (
-                <Box
-                    component="iframe"
-                    src="https://cdn.chungdoi.com/music/mot-doi.mp3"
-                    title="Nhạc Đám Cưới"
-                    sx={{ display: 'none' }}
-                    allow="autoplay"
-                />
-            )}
+            {/* Native HTML5 Audio element for persistent play/pause */}
+            <audio
+                ref={audioRef}
+                src="https://cdn.chungdoi.com/music/mot-doi.mp3"
+                loop
+                preload="auto"
+            />
 
             {/* Floating Rotating Disc Button */}
             <IconButton
