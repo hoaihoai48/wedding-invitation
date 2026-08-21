@@ -3,17 +3,18 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { alpha } from '@mui/material/styles';
 import Image from 'next/image';
 import InnerCard from './InnerCard';
+import type { InvitationConfig } from '@/config/invitation';
 
 interface WeddingEnvelopeProps {
   onOpened?: () => void;
+  invitation: InvitationConfig;
 }
 
-export default function WeddingEnvelope({ onOpened }: WeddingEnvelopeProps) {
+export default function WeddingEnvelope({ onOpened, invitation }: WeddingEnvelopeProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => {
@@ -41,6 +42,22 @@ export default function WeddingEnvelope({ onOpened }: WeddingEnvelopeProps) {
         px: 2,
       })}
     >
+      {/* Subtle Wedding Photo Backdrop */}
+      <Image
+        src={invitation.assets.coverBackgroundImage}
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        style={{
+          objectFit: 'cover',
+          objectPosition: 'center 46%',
+          opacity: 0.14,
+          filter: 'brightness(0.62) saturate(0.72) contrast(1.04)',
+          pointerEvents: 'none',
+        }}
+      />
+
       {/* Ambient Falling Confetti / Red Particles */}
       <Box
         sx={{
@@ -85,7 +102,7 @@ export default function WeddingEnvelope({ onOpened }: WeddingEnvelopeProps) {
         <Box
           sx={{
             position: 'relative',
-            width: { xs: '350px', sm: '500px', md: '640px', lg: '700px' },
+            width: { xs: 'min(350px, calc(100vw - 32px))', sm: '500px', md: '640px', lg: '700px' },
             height: { xs: '240px', sm: '330px', md: '420px', lg: '460px' },
             transformStyle: 'preserve-3d',
           }}
@@ -116,7 +133,7 @@ export default function WeddingEnvelope({ onOpened }: WeddingEnvelopeProps) {
           </Box>
 
           {/* ── LAYER 2 (Middle, z-index: 2): Invitation Card ── */}
-          <InnerCard isOpen={isOpen} />
+          <InnerCard isOpen={isOpen} invitation={invitation} />
 
           {/* ── LAYER 3 (Front, z-index: 3): Envelope Front ── */}
           <Box
@@ -136,13 +153,29 @@ export default function WeddingEnvelope({ onOpened }: WeddingEnvelopeProps) {
               pointerEvents: isOpen ? 'none' : 'auto',
             })}
           >
-            {/* Watermark Illustration of Old Saigon */}
+            {/* Subtle Wedding Photo Watermark */}
             <Image
-              src="/images/couple-landscape.png"
-              alt="Retro Saigon"
+              src={invitation.assets.coverBackgroundImage}
+              alt=""
               fill
               sizes="(max-width: 768px) 100vw, 520px"
-              style={{ objectFit: 'cover', opacity: 0.08, pointerEvents: 'none' }}
+              style={{
+                objectFit: 'cover',
+                objectPosition: 'center 46%',
+                opacity: 0.08,
+                filter: 'brightness(0.68) saturate(0.72) sepia(0.08)',
+                pointerEvents: 'none',
+                zIndex: 0,
+              }}
+            />
+            <Box
+              sx={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(180deg, rgba(40, 32, 28, 0.12), rgba(120, 24, 24, 0.12))',
+                pointerEvents: 'none',
+                zIndex: 1,
+              }}
             />
 
             {/* Central Action Button "Mở nắp thiệp" */}
@@ -183,8 +216,8 @@ export default function WeddingEnvelope({ onOpened }: WeddingEnvelopeProps) {
                       variant="outlined"
                       sx={(theme) => ({
                         borderColor: theme.palette.primary.main,
-                        color: theme.palette.primary.main,
-                        backgroundColor: alpha(theme.palette.vintage.cream, 0.9),
+                        color: theme.palette.vintage.cream,
+                        backgroundColor: theme.palette.primary.main,
                         fontFamily: '"Lora", "Baskerville", serif',
                         fontSize: { xs: '0.85rem', sm: '1rem' },
                         fontWeight: 600,
@@ -195,9 +228,9 @@ export default function WeddingEnvelope({ onOpened }: WeddingEnvelopeProps) {
                         textTransform: 'none',
                         transition: 'background-color 0.25s ease, color 0.25s ease',
                         '&:hover': {
-                          backgroundColor: theme.palette.primary.main,
-                          color: theme.palette.primary.contrastText,
-                          borderColor: theme.palette.primary.main,
+                          backgroundColor: theme.palette.primary.dark,
+                          color: theme.palette.vintage.cream,
+                          borderColor: theme.palette.primary.dark,
                         },
                       })}
                     >

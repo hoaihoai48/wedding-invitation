@@ -12,13 +12,15 @@ import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import CheckIcon from '@mui/icons-material/Check';
 import { alpha } from '@mui/material/styles';
 import Image from 'next/image';
+import type { InvitationConfig } from '@/config/invitation';
 
 interface GiftModalProps {
   open: boolean;
   onClose: () => void;
+  invitation: InvitationConfig;
 }
 
-export default function GiftModal({ open, onClose }: GiftModalProps) {
+export default function GiftModal({ open, onClose, invitation }: GiftModalProps) {
   const [copiedGroom, setCopiedGroom] = useState(false);
   const [copiedBride, setCopiedBride] = useState(false);
 
@@ -41,6 +43,19 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
     link.click();
     document.body.removeChild(link);
   };
+  React.useEffect(() => {
+    if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose();
+    };
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [open, onClose]);
 
   return (
     <AnimatePresence>
@@ -65,6 +80,9 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
           onClick={onClose}
         >
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="gift-modal-title"
             initial={{ opacity: 0, scale: 0.7, rotateX: -20, y: 50 }}
             animate={{ opacity: 1, scale: 1, rotateX: 0, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, rotateX: 15, y: 30 }}
@@ -109,6 +127,7 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
 
               {/* Title: Classic Retro Serif in Deep Red */}
               <Typography
+                id="gift-modal-title"
                 sx={(theme) => ({
                   fontFamily: '"SVN-HC Marvin Visions", "Lora", serif',
                   fontSize: { xs: '1.6rem', sm: '2.1rem' },
@@ -173,7 +192,7 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                         lineHeight: 1.3,
                       })}
                     >
-                      Chú Rể — Nguyễn Hoài Vũ
+                      Chú Rể — {invitation.groom.fullName}
                     </Typography>
                   </Box>
 
@@ -189,7 +208,7 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                     })}
                   >
                     <Image
-                      src="/images/qr-code.png"
+                      src={invitation.bankAccounts[0].qrImage}
                       alt="Mã QR Chú Rể"
                       width={160}
                       height={160}
@@ -228,11 +247,13 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                         letterSpacing: '0.04em',
                       })}
                     >
-                      1234567890
+                      {invitation.bankAccounts[0].accountNumber}
                     </Typography>
                     <IconButton
                       size="small"
-                      onClick={() => handleCopy('1234567890', true)}
+                      aria-label="Sao chép số tài khoản chú rể"
+                      title="Sao chép số tài khoản"
+                      onClick={() => handleCopy(invitation.bankAccounts[0].accountNumber, true)}
                       sx={(theme) => ({
                         color: copiedGroom ? theme.palette.vintage.successGreen : theme.palette.text.primary,
                         p: 0.3,
@@ -258,7 +279,7 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                       textTransform: 'uppercase',
                     })}
                   >
-                    NGUYỄN HOÀI VŨ
+                    {invitation.bankAccounts[0].owner}
                   </Typography>
 
                   {/* Push button to bottom */}
@@ -266,7 +287,7 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                     <Button
                       variant="outlined"
                       startIcon={<FileDownloadOutlinedIcon />}
-                      onClick={() => handleDownload('/images/qr-code.png', 'QR_Nguyen_Hoai_Vu.png')}
+                      onClick={() => handleDownload(invitation.bankAccounts[0].qrImage, 'QR_Nguyen_Hoai_Vu.png')}
                       sx={(theme) => ({
                         borderColor: theme.palette.vintage.darkBrown,
                         color: theme.palette.text.primary,
@@ -317,7 +338,7 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                         lineHeight: 1.3,
                       })}
                     >
-                      Cô Dâu — Nguyễn Minh Thục Trinh
+                      Cô Dâu — {invitation.bride.fullName}
                     </Typography>
                   </Box>
 
@@ -333,7 +354,7 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                     })}
                   >
                     <Image
-                      src="/images/qr-code.png"
+                      src={invitation.bankAccounts[1].qrImage}
                       alt="Mã QR Cô Dâu"
                       width={160}
                       height={160}
@@ -351,7 +372,7 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                       mb: 0.3,
                     })}
                   >
-                    Ngân hàng MBBank
+                    {invitation.bankAccounts[1].bank}
                   </Typography>
 
                   <Box
@@ -372,11 +393,13 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                         letterSpacing: '0.04em',
                       })}
                     >
-                      9876543210
+                      {invitation.bankAccounts[1].accountNumber}
                     </Typography>
                     <IconButton
                       size="small"
-                      onClick={() => handleCopy('9876543210', false)}
+                      aria-label="Sao chép số tài khoản cô dâu"
+                      title="Sao chép số tài khoản"
+                      onClick={() => handleCopy(invitation.bankAccounts[1].accountNumber, false)}
                       sx={(theme) => ({
                         color: copiedBride ? theme.palette.vintage.successGreen : theme.palette.text.primary,
                         p: 0.3,
@@ -402,7 +425,7 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                       textTransform: 'uppercase',
                     })}
                   >
-                    NGUYỄN MINH THỤC TRINH
+                    {invitation.bankAccounts[1].owner}
                   </Typography>
 
                   {/* Push button to bottom */}
@@ -410,7 +433,7 @@ export default function GiftModal({ open, onClose }: GiftModalProps) {
                     <Button
                       variant="outlined"
                       startIcon={<FileDownloadOutlinedIcon />}
-                      onClick={() => handleDownload('/images/qr-code.png', 'QR_Nguyen_Minh_Thuc_Trinh.png')}
+                      onClick={() => handleDownload(invitation.bankAccounts[1].qrImage, 'QR_Nguyen_Minh_Thuc_Trinh.png')}
                       sx={(theme) => ({
                         borderColor: theme.palette.vintage.darkBrown,
                         color: theme.palette.text.primary,

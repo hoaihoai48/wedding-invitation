@@ -30,20 +30,7 @@ export default function RSVPForm() {
   const [wish, setWish] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [wishes, setWishes] = useState<GuestWish[]>([
-    {
-      id: 'default-1',
-      name: 'NGUYỄN HÙNG HẬU',
-      wish: 'CHÚC ANH CHỊ HẠNH PHÚC TRĂM NĂM AHIHI',
-      time: '15:26:44 26/7/2026',
-    },
-    {
-      id: 'default-2',
-      name: 'BẢO LỘC & DIÊN KHÁNH',
-      wish: 'Chúc hai bạn trăm năm hạnh phúc, gia đình êm ấm viên mãn!',
-      time: '14:10:20 26/7/2026',
-    },
-  ]);
+  const [wishes, setWishes] = useState<GuestWish[]>([]);
 
   // Realtime listener for Firestore wishes
   useEffect(() => {
@@ -143,6 +130,7 @@ export default function RSVPForm() {
           <Box
             component="input"
             type="text"
+            aria-label="Tên của bạn"
             placeholder="Nhập tên của bạn*"
             value={name}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
@@ -169,6 +157,7 @@ export default function RSVPForm() {
           <Box
             component="textarea"
             rows={3}
+            aria-label="Lời chúc của bạn"
             placeholder="Nhập lời chúc của bạn*"
             value={wish}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setWish(e.target.value)}
@@ -196,6 +185,7 @@ export default function RSVPForm() {
           <Box
             component="button"
             type="submit"
+            disabled={isSubmitting}
             sx={(theme) => ({
               px: 4,
               py: 1.2,
@@ -212,6 +202,11 @@ export default function RSVPForm() {
                 backgroundColor: theme.palette.primary.main,
                 transform: 'translateY(-1px)',
               },
+              '&:disabled': {
+                opacity: 0.6,
+                cursor: 'not-allowed',
+                transform: 'none',
+              },
             })}
           >
             GỬI LỜI CHÚC
@@ -221,9 +216,9 @@ export default function RSVPForm() {
 
       {/* Guest Wishes List */}
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-        {wishes.map((item, index) => (
+        {wishes.map((item) => (
           <Box
-            key={index}
+            key={item.id}
             sx={(theme) => ({
               p: 2,
               borderRadius: '8px',

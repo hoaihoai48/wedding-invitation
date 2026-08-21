@@ -5,9 +5,11 @@ import { motion } from 'framer-motion';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { alpha } from '@mui/material/styles';
+import type { InvitationConfig } from '@/config/invitation';
 
 interface CoverProps {
   onOpen: () => void;
+  invitation: InvitationConfig;
 }
 
 function FallingConfetti() {
@@ -65,7 +67,11 @@ function FallingConfetti() {
   );
 }
 
-export default function Cover({ onOpen }: CoverProps) {
+export default function Cover({ onOpen, invitation }: CoverProps) {
+  const event = invitation.event ?? invitation.events?.[0];
+
+  if (!event) return null;
+
   return (
     <Box
       sx={(theme) => ({
@@ -142,7 +148,7 @@ export default function Cover({ onOpen }: CoverProps) {
               overflow: 'hidden',
             })}
           >
-            {/* Background paper texture + Background Image */}
+            {/* Background paper texture + Wedding Photo */}
             <Box
               sx={(theme) => ({
                 position: 'absolute',
@@ -154,7 +160,7 @@ export default function Cover({ onOpen }: CoverProps) {
             >
               <Box
                 component="img"
-                src="/images/couple-landscape.png"
+                src={invitation.assets.heroImage}
                 alt=""
                 sx={{
                   position: 'absolute',
@@ -195,7 +201,7 @@ export default function Cover({ onOpen }: CoverProps) {
                     letterSpacing: '0.02em',
                   })}
                 >
-                  Hoài Vũ
+                  {invitation[invitation.coupleOrder[0]].shortName}
                 </Typography>
                 <Typography
                   component="span"
@@ -225,14 +231,14 @@ export default function Cover({ onOpen }: CoverProps) {
                     letterSpacing: '0.02em',
                   })}
                 >
-                  Thục Trinh
+                  {invitation[invitation.coupleOrder[1]].shortName}
                 </Typography>
               </Box>
 
               {/* Decorative divider */}
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2, mb: 2 }}>
                 <Box sx={(theme) => ({ width: 55, height: '1px', background: `linear-gradient(to right, transparent, ${alpha(theme.palette.text.secondary, 0.45)})` })} />
-                <Typography sx={(theme) => ({ color: alpha(theme.palette.text.secondary, 0.45), fontSize: '0.95rem' })}>❦</Typography>
+                <Typography sx={(theme) => ({ color: alpha(theme.palette.text.secondary, 0.45), fontSize: '0.95rem' })} aria-hidden="true">❦</Typography>
                 <Box sx={(theme) => ({ width: 55, height: '1px', background: `linear-gradient(to left, transparent, ${alpha(theme.palette.text.secondary, 0.45)})` })} />
               </Box>
 
@@ -245,7 +251,8 @@ export default function Cover({ onOpen }: CoverProps) {
                   mb: 2.5,
                 })}
               >
-                14 tháng 9, 2026
+                {event.ceremonyDayLabel}
+ / {event.ceremonyMonthLabel.replace('THÁNG ', '')} / {event.ceremonyYearLabel}
               </Typography>
 
               {/* Thân Mời */}

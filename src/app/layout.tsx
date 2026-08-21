@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     siteName: 'Thiệp Cưới Hoài Vũ & Thục Trinh',
     images: [
       {
-        url: '/images/couple-landscape.png',
+        url: '/images/wedding-cover-4151.webp',
         width: 1200,
         height: 630,
         alt: 'Hoài Vũ & Thục Trinh Wedding',
@@ -35,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="vi" suppressHydrationWarning>
       <head>
-        {/* Google Fonts: Lora, Righteous & Monoton/Bungee (Retro Sài Gòn Fonts) */}
+        {/* Google Fonts used by the Vietnamese vintage wedding design */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link

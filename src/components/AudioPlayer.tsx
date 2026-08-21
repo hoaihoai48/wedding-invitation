@@ -1,9 +1,8 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import MusicOffIcon from '@mui/icons-material/MusicOff';
-import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import { alpha } from '@mui/material/styles';
 
@@ -38,6 +37,8 @@ export default function AudioPlayer({ isPlaying, onToggle }: AudioPlayerProps) {
 
             {/* Floating Rotating Disc Button */}
             <IconButton
+                aria-label={isPlaying ? 'Tạm dừng nhạc' : 'Bật nhạc'}
+                title={isPlaying ? 'Tạm dừng nhạc' : 'Bật nhạc'}
                 onClick={onToggle}
                 sx={(theme) => ({
                     position: 'fixed',

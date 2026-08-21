@@ -6,12 +6,14 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { alpha } from '@mui/material/styles';
+import type { InvitationConfig } from '@/config/invitation';
 
 interface InnerCardProps {
   isOpen: boolean;
+  invitation: InvitationConfig;
 }
 
-export default function InnerCard({ isOpen }: InnerCardProps) {
+export default function InnerCard({ isOpen, invitation }: InnerCardProps) {
   return (
     <motion.div
       initial={{ y: '20px', opacity: 0, scale: 0.96 }}
@@ -123,7 +125,7 @@ export default function InnerCard({ isOpen }: InnerCardProps) {
         />
 
         <Stack spacing={1} sx={{ alignItems: 'center' }}>
-          {/* Top text: "LỄ THÀNH HÔN" */}
+          {/* Top text: "{invitation.title}" */}
           <Typography
             sx={(theme) => ({
               fontFamily: '"SVN-HC Marvin Visions", "Lora", serif',
@@ -134,7 +136,7 @@ export default function InnerCard({ isOpen }: InnerCardProps) {
               fontWeight: 700,
             })}
           >
-            LỄ THÀNH HÔN
+            {invitation.title}
           </Typography>
 
           {/* Main text: "Vũ & Trinh" */}
@@ -147,7 +149,7 @@ export default function InnerCard({ isOpen }: InnerCardProps) {
               my: 0.25,
             })}
           >
-            Vũ &amp; Trinh
+            {invitation.coupleOrder.map((member) => invitation[member].shortName).join(' & ')}
           </Typography>
 
           {/* Sub text: "Thiệp mời sẽ tự động chuyển trang..." */}
