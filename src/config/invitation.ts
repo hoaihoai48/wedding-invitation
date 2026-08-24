@@ -87,15 +87,15 @@ const bride: PersonInfo = {
 const bankAccounts: BankAccount[] = [
   {
     owner: 'NGUYỄN HOÀI VŨ',
-    bank: 'MBBank',
-    accountNumber: '1234567890',
-    qrImage: '/images/qr-code.png',
+    bank: 'Vietcombank',
+    accountNumber: '0061001176403',
+    qrImage: '/images/qr_chu_re_only.png',
   },
   {
     owner: 'NGUYỄN MINH THỤC TRINH',
     bank: 'MBBank',
-    accountNumber: '9876543210',
-    qrImage: '/images/qr-code.png',
+    accountNumber: '9999999280898',
+    qrImage: '/images/qr_co_dau_only.png',
   },
 ];
 

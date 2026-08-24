@@ -524,9 +524,9 @@ export default function MainContent({ isOpened = true, invitation }: MainContent
                 <Image
                   src="/images/envelopes-perfect.png"
                   alt="Hộp quà mừng cưới"
-                  width={360}
-                  height={300}
-                  style={{ width: '100%', height: '100%', objectFit: 'contain', mixBlendMode: 'multiply' }}
+                  fill
+                  sizes="(max-width: 600px) 250px, (max-width: 900px) 300px, 340px"
+                  style={{ objectFit: 'contain', mixBlendMode: 'multiply' }}
                   priority
                 />
               </Box>

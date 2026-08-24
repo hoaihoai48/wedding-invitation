@@ -20,9 +20,16 @@ interface GiftModalProps {
   invitation: InvitationConfig;
 }
 
+type QrPreview = {
+  src: string;
+  alt: string;
+  owner: string;
+};
+
 export default function GiftModal({ open, onClose, invitation }: GiftModalProps) {
   const [copiedGroom, setCopiedGroom] = useState(false);
   const [copiedBride, setCopiedBride] = useState(false);
+  const [selectedQr, setSelectedQr] = useState<QrPreview | null>(null);
 
   const handleCopy = (text: string, isGroom: boolean) => {
     navigator.clipboard.writeText(text);
@@ -47,7 +54,13 @@ export default function GiftModal({ open, onClose, invitation }: GiftModalProps)
     if (!open) return;
     const previousOverflow = document.body.style.overflow;
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onClose();
+      if (event.key === 'Escape') {
+        if (selectedQr) {
+          setSelectedQr(null);
+        } else {
+          onClose();
+        }
+      }
     };
     document.body.style.overflow = 'hidden';
     document.addEventListener('keydown', handleKeyDown);
@@ -55,7 +68,7 @@ export default function GiftModal({ open, onClose, invitation }: GiftModalProps)
       document.body.style.overflow = previousOverflow;
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [open, onClose]);
+  }, [open, onClose, selectedQr]);
 
   return (
     <AnimatePresence>
@@ -196,25 +209,48 @@ export default function GiftModal({ open, onClose, invitation }: GiftModalProps)
                     </Typography>
                   </Box>
 
-                  {/* Elegant Thin Dark Brown Border for QR Code */}
+                  {/* QR preview button */}
                   <Box
+                    component="button"
+                    type="button"
+                    aria-label="Phóng to mã QR chú rể"
+                    onClick={() =>
+                      setSelectedQr({
+                        src: invitation.bankAccounts[0].qrImage,
+                        alt: 'Mã QR Chú Rể',
+                        owner: invitation.bankAccounts[0].owner,
+                      })
+                    }
                     sx={(theme) => ({
                       p: 1.5,
                       backgroundColor: theme.palette.common.white,
                       borderRadius: '10px',
                       border: `1px solid ${theme.palette.vintage.darkBrown}`,
-                      mb: 2,
+                      mb: 1,
                       display: 'inline-block',
+                      cursor: 'zoom-in',
+                      transition: 'box-shadow 0.2s ease, transform 0.2s ease',
+                      '&:hover': {
+                        boxShadow: `0 8px 18px ${alpha(theme.palette.common.black, 0.16)}`,
+                        transform: 'translateY(-2px)',
+                      },
+                      '&:focus-visible': {
+                        outline: `3px solid ${alpha(theme.palette.primary.main, 0.45)}`,
+                        outlineOffset: '3px',
+                      },
                     })}
                   >
                     <Image
                       src={invitation.bankAccounts[0].qrImage}
                       alt="Mã QR Chú Rể"
-                      width={160}
-                      height={160}
-                      style={{ display: 'block' }}
+                      width={443}
+                      height={443}
+                      style={{ display: 'block', width: '100%', height: 'auto', maxWidth: '220px', objectFit: 'contain' }}
                     />
                   </Box>
+                  <Typography sx={(theme) => ({ fontFamily: '"Lora", serif', fontSize: '0.7rem', color: theme.palette.text.secondary, mb: 2 })}>
+                    Bấm vào mã QR để xem lớn hơn
+                  </Typography>
 
                   {/* Banking Details */}
                   <Typography
@@ -226,7 +262,7 @@ export default function GiftModal({ open, onClose, invitation }: GiftModalProps)
                       mb: 0.3,
                     })}
                   >
-                    Ngân hàng Vietcombank
+                    Ngân hàng {invitation.bankAccounts[0].bank}
                   </Typography>
 
                   <Box
@@ -342,25 +378,48 @@ export default function GiftModal({ open, onClose, invitation }: GiftModalProps)
                     </Typography>
                   </Box>
 
-                  {/* Elegant Thin Dark Brown Border for QR Code */}
+                  {/* QR preview button */}
                   <Box
+                    component="button"
+                    type="button"
+                    aria-label="Phóng to mã QR cô dâu"
+                    onClick={() =>
+                      setSelectedQr({
+                        src: invitation.bankAccounts[1].qrImage,
+                        alt: 'Mã QR Cô Dâu',
+                        owner: invitation.bankAccounts[1].owner,
+                      })
+                    }
                     sx={(theme) => ({
                       p: 1.5,
                       backgroundColor: theme.palette.common.white,
                       borderRadius: '10px',
                       border: `1px solid ${theme.palette.vintage.darkBrown}`,
-                      mb: 2,
+                      mb: 1,
                       display: 'inline-block',
+                      cursor: 'zoom-in',
+                      transition: 'box-shadow 0.2s ease, transform 0.2s ease',
+                      '&:hover': {
+                        boxShadow: `0 8px 18px ${alpha(theme.palette.common.black, 0.16)}`,
+                        transform: 'translateY(-2px)',
+                      },
+                      '&:focus-visible': {
+                        outline: `3px solid ${alpha(theme.palette.primary.main, 0.45)}`,
+                        outlineOffset: '3px',
+                      },
                     })}
                   >
                     <Image
                       src={invitation.bankAccounts[1].qrImage}
                       alt="Mã QR Cô Dâu"
-                      width={160}
-                      height={160}
-                      style={{ display: 'block' }}
+                      width={597}
+                      height={597}
+                      style={{ display: 'block', width: '100%', height: 'auto', maxWidth: '220px', objectFit: 'contain' }}
                     />
                   </Box>
+                  <Typography sx={(theme) => ({ fontFamily: '"Lora", serif', fontSize: '0.7rem', color: theme.palette.text.secondary, mb: 2 })}>
+                    Bấm vào mã QR để xem lớn hơn
+                  </Typography>
 
                   {/* Banking Details */}
                   <Typography
@@ -457,6 +516,90 @@ export default function GiftModal({ open, onClose, invitation }: GiftModalProps)
               </Box>
             </Box>
           </motion.div>
+
+          <AnimatePresence>
+            {selectedQr && (
+              <Box
+                component={motion.div}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="qr-preview-title"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setSelectedQr(null)}
+                sx={(theme) => ({
+                  position: 'fixed',
+                  inset: 0,
+                  zIndex: 1300,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  p: { xs: 2, sm: 3 },
+                  backgroundColor: alpha(theme.palette.vintage.darkBrown, 0.82),
+                  backdropFilter: 'blur(5px)',
+                })}
+              >
+                <Box
+                  component={motion.div}
+                  initial={{ opacity: 0, scale: 0.88, y: 16 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.92, y: 10 }}
+                  transition={{ type: 'spring', stiffness: 320, damping: 26 }}
+                  onClick={(event) => event.stopPropagation()}
+                  sx={(theme) => ({
+                    position: 'relative',
+                    width: 'min(100%, 580px)',
+                    maxHeight: '90vh',
+                    overflowY: 'auto',
+                    p: { xs: 3, sm: 4 },
+                    borderRadius: '16px',
+                    backgroundColor: theme.palette.vintage.cream,
+                    border: `1px solid ${theme.palette.vintage.gold}`,
+                    boxShadow: `0 24px 70px ${alpha(theme.palette.common.black, 0.5)}`,
+                    textAlign: 'center',
+                  })}
+                >
+                  <IconButton
+                    onClick={() => setSelectedQr(null)}
+                    aria-label="Đóng ảnh QR phóng to"
+                    sx={(theme) => ({
+                      position: 'absolute',
+                      top: 12,
+                      right: 12,
+                      color: theme.palette.text.primary,
+                    })}
+                  >
+                    <CloseIcon />
+                  </IconButton>
+                  <Typography
+                    id="qr-preview-title"
+                    sx={(theme) => ({
+                      mb: 2,
+                      pr: 4,
+                      fontFamily: '"SVN-HC Marvin Visions", "Lora", serif',
+                      fontSize: { xs: '1.25rem', sm: '1.5rem' },
+                      color: theme.palette.primary.main,
+                    })}
+                  >
+                    {selectedQr.owner}
+                  </Typography>
+                  <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                    <Image
+                      src={selectedQr.src}
+                      alt={selectedQr.alt}
+                      width={900}
+                      height={900}
+                      style={{ display: 'block', width: 'min(76vw, 500px)', height: 'auto', maxHeight: '68vh', objectFit: 'contain' }}
+                    />
+                  </Box>
+                  <Typography sx={(theme) => ({ mt: 2, fontFamily: '"Lora", serif', fontSize: '0.8rem', color: theme.palette.text.secondary })}>
+                    Bấm ra ngoài hoặc nhấn Escape để đóng
+                  </Typography>
+                </Box>
+              </Box>
+            )}
+          </AnimatePresence>
         </Box>
       )}
     </AnimatePresence>
