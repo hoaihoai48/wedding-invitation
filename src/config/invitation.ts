@@ -70,7 +70,7 @@ const groom: PersonInfo = {
   parents: {
     father: 'Nguyễn Văn Cường',
     mother: 'Thái Thị Cường',
-    address: 'Phú An Nam 2, Diên Khánh, Khánh Hòa',
+    address: 'Phú Ân Nam 2, Diên Khánh, Khánh Hòa',
   },
 };
 
